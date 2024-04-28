@@ -5,19 +5,37 @@ namespace SimpleCameraSetting
 {
     public class ModSetting : ModSettings
     {
-        public IntRange sizeRange = new IntRange(0, 60);
-        public float zoomSpeed = 2f;
-        public bool smoothZoom = false;
-        public float silhouetteDistance = 60f;
-        public float moveSpeedScale_1 = 0.1f;
-        public float moveSpeedScale_3 = 0.3f;
-        public float moveSpeedScale_5 = 0.7f;
-        public float moveSpeedScale_10 = 1f;
-        public float moveSpeedScale_20 = 2f;
-        public float moveSpeedScale_40 = 3f;
-        public float moveSpeedScale_60 = 4f;
-        public float moveSpeedScale_100 = 5f;
-
+        public IntRange sizeRange;
+        public float zoomSpeed;
+        public bool smoothZoom;
+        public float silhouetteDistance;
+        public float moveSpeedScale_1;
+        public float moveSpeedScale_3;
+        public float moveSpeedScale_5;
+        public float moveSpeedScale_10;
+        public float moveSpeedScale_20;
+        public float moveSpeedScale_40;
+        public float moveSpeedScale_60;
+        public float moveSpeedScale_100;
+        public ModSetting()
+        {
+            SetDefault();
+        }
+        public void SetDefault()
+        {
+            sizeRange = new IntRange(0, 60);
+            zoomSpeed = 2f;
+            smoothZoom = false;
+            silhouetteDistance = 60f;
+            moveSpeedScale_1 = 0.2f;
+            moveSpeedScale_3 = 0.4f;
+            moveSpeedScale_5 = 0.8f;
+            moveSpeedScale_10 = 1.5f;
+            moveSpeedScale_20 = 2f;
+            moveSpeedScale_40 = 3f;
+            moveSpeedScale_60 = 4f;
+            moveSpeedScale_100 = 5f;
+        }
         public override void ExposeData()
         {
             Scribe_Values.Look<IntRange>(ref sizeRange, "sizeRange", new IntRange(0, 60));
@@ -25,15 +43,16 @@ namespace SimpleCameraSetting
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
 
-            Scribe_Values.Look(ref moveSpeedScale_1, "moveSpeedScale_1", 0.1f);
-            Scribe_Values.Look(ref moveSpeedScale_3, "moveSpeedScale_3", 0.3f);
-            Scribe_Values.Look(ref moveSpeedScale_5, "moveSpeedScale_5", 0.7f);
-            Scribe_Values.Look(ref moveSpeedScale_10, "moveSpeedScale_10", 1f);
+            Scribe_Values.Look(ref moveSpeedScale_1, "moveSpeedScale_1", 0.2f);
+            Scribe_Values.Look(ref moveSpeedScale_3, "moveSpeedScale_3", 0.4f);
+            Scribe_Values.Look(ref moveSpeedScale_5, "moveSpeedScale_5", 0.8f);
+            Scribe_Values.Look(ref moveSpeedScale_10, "moveSpeedScale_10", 1.5f);
             Scribe_Values.Look(ref moveSpeedScale_20, "moveSpeedScale_20", 2f);
             Scribe_Values.Look(ref moveSpeedScale_40, "moveSpeedScale_40", 3f);
             Scribe_Values.Look(ref moveSpeedScale_60, "moveSpeedScale_60", 4f);
             Scribe_Values.Look(ref moveSpeedScale_100, "moveSpeedScale_100", 5f);
             base.ExposeData();
+
         }
     }
     public class SimpleCameraModSetting : Mod
@@ -54,17 +73,20 @@ namespace SimpleCameraSetting
             listingStandard.Begin(inRect);
             listingStandard.Label("Zoom Range");
             listingStandard.IntRange(ref modSetting.sizeRange, 0, 100);
+            listingStandard.GapLine();
 
             //cameraSetting.zoomSpeed=listingStandard.SliderLabeled("Zoom Speed",cameraSetting.zoomSpeed, 0.1f, 10f);
 
             modSetting.zoomSpeed = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.zoomSpeed, 0.1f, 10f,
                 false, string.Format("{0} {1:F1}", (object)"Zoom Speed".Translate(), (object)modSetting.zoomSpeed),
                 (string)null, (string)null, -1f);
+            listingStandard.GapLine();
 
             modSetting.silhouetteDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.silhouetteDistance, 30f, 100f,
                 false, string.Format("{0} {1:F1}", (object)"Silhouette Distance".Translate(), (object)modSetting.silhouetteDistance),
                 (string)null, "set 100 to disable", -1f);
 
+            listingStandard.GapLine();
             listingStandard.CheckboxLabeled("Smooth Zoom", ref modSetting.smoothZoom);
 
             //listingStandard.CheckboxLabeled("Follow Selected", ref cameraSetting.followSelected, "Camera focus on selected pawn(Uses Vanila Options)");
@@ -132,7 +154,7 @@ namespace SimpleCameraSetting
             {
                 currentValue += 1f;
             }
-            if(currentValue < 0f)currentValue = 0f;
+            if (currentValue < 0f) currentValue = 0f;
             if (currentValue > 10f) currentValue = 10f;
             listingStandard.GapLine();
         }
