@@ -33,7 +33,7 @@ namespace SimpleCameraSetting
         [HarmonyPrefix]
         public static bool Prefix(ref float __result)
         {
-            if (SimpleCameraModSetting.cameraSetting.silhouetteDistance == 100f) return true;
+            if (SimpleCameraModSetting.modSetting.silhouetteDistance == 100f) return true;
             if (lastCachedAlphaFrame == RealTime.frameCount)
             {
                 __result = lastCachedAlpha;
@@ -42,7 +42,7 @@ namespace SimpleCameraSetting
             lastCachedAlphaFrame = RealTime.frameCount;
             int num1 = Prefs.HighlightStyleMode == HighlightStyleMode.Silhouettes ? 1 : 0;
             CameraDriver cameraDriver = Find.CameraDriver;
-            float num2 = Mathf.Clamp01(Mathf.InverseLerp(SimpleCameraModSetting.cameraSetting.silhouetteDistance * 0.849999964f, SimpleCameraModSetting.cameraSetting.silhouetteDistance, cameraDriver.ZoomRootSize));
+            float num2 = Mathf.Clamp01(Mathf.InverseLerp(SimpleCameraModSetting.modSetting.silhouetteDistance * 0.849999964f, SimpleCameraModSetting.modSetting.silhouetteDistance, cameraDriver.ZoomRootSize));
             __result= num1 != 0 ? (lastCachedAlpha = 0.9f * num2) : (lastCachedAlpha = 0.75f * num2);
             return false;
         
@@ -56,14 +56,14 @@ namespace SimpleCameraSetting
         [HarmonyPrefix]
         public static bool Prefix(ref bool __result)
         {
-            if (SimpleCameraModSetting.cameraSetting.silhouetteDistance == 100f) return true;
+            if (SimpleCameraModSetting.modSetting.silhouetteDistance == 100f) return true;
             if (Prefs.DotHighlightDisplayMode == DotHighlightDisplayMode.None)
             {
                 __result = false;
                 return false;
             }
             CameraDriver cameraDriver = Find.CameraDriver;
-            __result = (double)cameraDriver.ZoomRootSize >= SimpleCameraModSetting.cameraSetting.silhouetteDistance * 0.89999997615814209;
+            __result = (double)cameraDriver.ZoomRootSize >= SimpleCameraModSetting.modSetting.silhouetteDistance * 0.89999997615814209;
             //Log.Message("res:"+__result);
             return false; // Prevent the original method from executing
         }

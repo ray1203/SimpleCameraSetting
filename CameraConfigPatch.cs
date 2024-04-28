@@ -11,10 +11,10 @@ namespace SimpleCameraSetting
 
             if (Current.CameraDriver != null)
             {
-                Current.CameraDriver.config.sizeRange.min = SimpleCameraModSetting.cameraSetting.sizeRange.min;
-                Current.CameraDriver.config.sizeRange.max = SimpleCameraModSetting.cameraSetting.sizeRange.max;
-                Current.CameraDriver.config.zoomSpeed = SimpleCameraModSetting.cameraSetting.zoomSpeed;
-                Current.CameraDriver.config.smoothZoom = SimpleCameraModSetting.cameraSetting.smoothZoom;
+                Current.CameraDriver.config.sizeRange.min = SimpleCameraModSetting.modSetting.sizeRange.min;
+                Current.CameraDriver.config.sizeRange.max = SimpleCameraModSetting.modSetting.sizeRange.max;
+                Current.CameraDriver.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeed;
+                Current.CameraDriver.config.smoothZoom = SimpleCameraModSetting.modSetting.smoothZoom;
                 //Current.CameraDriver.config.followSelected = SettingPatch.cameraSetting.followSelected;
             }
         }
