@@ -32,7 +32,9 @@ namespace SimpleCameraSetting
         public static void LoadGamePreFix()
         {
             CameraConfigPatch.ConfigPatch();
+#if DEBUG
             Log.Message("CameraSetting Applied");
+#endif
             //Log.Message(Current.CameraDriver.config);
         }
 
@@ -40,12 +42,12 @@ namespace SimpleCameraSetting
         [HarmonyPrefix]
         public static bool CurrentZoomPreFix(CameraDriver __instance, ref CameraZoomRange __result)
         {
-            float rangeMin = __instance.config.sizeRange.min;
+            float rangeMin = SimpleCameraModSetting.modSetting.displayDistance;
             float rangeMax = __instance.config.sizeRange.max;
-            if (rangeMin < 11) rangeMin = 11;
             if (rangeMax > 60) rangeMax = 60;
             if ((double)__instance.ZoomRootSize < rangeMin + 1.0)
             {
+                //아마 Closest 말고 다른 요소는 사용하지 않음
                 __result = CameraZoomRange.Closest;
                 return false;
             }

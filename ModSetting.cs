@@ -9,6 +9,7 @@ namespace SimpleCameraSetting
         public float zoomSpeed;
         public bool smoothZoom;
         public float silhouetteDistance;
+        public float displayDistance;
         public float moveSpeedScale_1;
         public float moveSpeedScale_3;
         public float moveSpeedScale_5;
@@ -27,6 +28,7 @@ namespace SimpleCameraSetting
             zoomSpeed = 2f;
             smoothZoom = false;
             silhouetteDistance = 60f;
+            displayDistance = 11f;
             moveSpeedScale_1 = 0.2f;
             moveSpeedScale_3 = 0.4f;
             moveSpeedScale_5 = 0.8f;
@@ -42,6 +44,7 @@ namespace SimpleCameraSetting
             Scribe_Values.Look<float>(ref zoomSpeed, "zoomSpeed", 2f);
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
+            Scribe_Values.Look<float>(ref displayDistance, "displayDistance", 11f);
 
             Scribe_Values.Look(ref moveSpeedScale_1, "moveSpeedScale_1", 0.2f);
             Scribe_Values.Look(ref moveSpeedScale_3, "moveSpeedScale_3", 0.4f);
@@ -81,16 +84,27 @@ namespace SimpleCameraSetting
                 false, string.Format("{0} {1:F1}", (object)"Zoom Speed".Translate(), (object)modSetting.zoomSpeed),
                 (string)null, (string)null, -1f);
             listingStandard.GapLine();
+            listingStandard.Gap();
 
             modSetting.silhouetteDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.silhouetteDistance, 30f, 100f,
-                false, string.Format("{0} {1:F1}", (object)"Silhouette Distance".Translate(), (object)modSetting.silhouetteDistance),
-                (string)null, "set 100 to disable", -1f);
-
+                false, "",string.Format("{0} {1:F1}", (object)"Silhouette Distance".Translate(), (object)modSetting.silhouetteDistance)
+                , "set 100 to disable", -1f);
             listingStandard.GapLine();
+            listingStandard.Gap();
+
+            modSetting.displayDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.displayDistance, 1f, 60f,
+                false, "", string.Format("{0} {1:F1}", (object)"Display Distance".Translate(), (object)modSetting.displayDistance)
+                , "show item count, progress bar", -1f);
+            listingStandard.GapLine();
+            listingStandard.Gap();
             listingStandard.CheckboxLabeled("Smooth Zoom", ref modSetting.smoothZoom);
 
             //listingStandard.CheckboxLabeled("Follow Selected", ref cameraSetting.followSelected, "Camera focus on selected pawn(Uses Vanila Options)");
 
+            listingStandard.GapLine();
+            listingStandard.Gap();
+
+            if (listingStandard.ButtonText("Default Value")) modSetting.SetDefault();
 
             listingStandard.NewColumn();
 
