@@ -1,5 +1,7 @@
 ﻿using Verse;
 using UnityEngine;
+using System;
+using BetterKeybinding;
 
 namespace SimpleCameraSetting
 {
@@ -10,6 +12,19 @@ namespace SimpleCameraSetting
         public bool smoothZoom;
         public float silhouetteDistance;
         public float displayDistance;
+        private static KeyBind _followCameraKey;
+        public static KeyBind followCameraKey
+        {
+            // Method get_FollowMeKey with token 06000042
+            get
+            {
+                if (ModSetting._followCameraKey == null)
+                    ModSetting._followCameraKey = new KeyBind((string)"followCameraKey".Translate(), KeyCode.Backspace, EventModifiers.None);
+                return ModSetting._followCameraKey;
+            }
+        }
+
+
         public float moveSpeedScale_1;
         public float moveSpeedScale_3;
         public float moveSpeedScale_5;
@@ -29,6 +44,7 @@ namespace SimpleCameraSetting
             smoothZoom = false;
             silhouetteDistance = 60f;
             displayDistance = 11f;
+
             moveSpeedScale_1 = 0.2f;
             moveSpeedScale_3 = 0.4f;
             moveSpeedScale_5 = 0.8f;
@@ -45,6 +61,8 @@ namespace SimpleCameraSetting
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
             Scribe_Values.Look<float>(ref displayDistance, "displayDistance", 11f);
+            Scribe_Deep.Look<KeyBind>(ref ModSetting._followCameraKey, "followCameraKey", Array.Empty<object>());
+
 
             Scribe_Values.Look(ref moveSpeedScale_1, "moveSpeedScale_1", 0.2f);
             Scribe_Values.Look(ref moveSpeedScale_3, "moveSpeedScale_3", 0.4f);
@@ -97,7 +115,8 @@ namespace SimpleCameraSetting
                 , "show item count, progress bar", -1f);
             listingStandard.GapLine();
             listingStandard.Gap();
-            listingStandard.CheckboxLabeled("Smooth Zoom", ref modSetting.smoothZoom);
+
+            ModSetting.followCameraKey.Draw(listingStandard.GetRect(30f, 1f), 6);
 
             //listingStandard.CheckboxLabeled("Follow Selected", ref cameraSetting.followSelected, "Camera focus on selected pawn(Uses Vanila Options)");
 

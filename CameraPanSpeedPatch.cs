@@ -9,6 +9,7 @@ namespace SimpleCameraSetting
     {
         private static float desiredSize;
         private static float desiredSizeBefore=0f;
+        private static bool followCameraFlag=false;
         [HarmonyPatch(typeof(CameraDriver),nameof(CameraDriver.CameraDriverOnGUI))]
         [HarmonyPrefix]
         public static bool Prefix(CameraDriver __instance)
@@ -26,6 +27,14 @@ namespace SimpleCameraSetting
                 else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
             }
             desiredSizeBefore = desiredSize;
+
+            if (ModSetting.followCameraKey.JustPressed)
+            {
+                followCameraFlag = !followCameraFlag;
+                Messages.Message("Camera Following"+(followCameraFlag?"On":"Off"),new MessageTypeDef());
+                
+                Current.CameraDriver.config.followSelected = followCameraFlag;
+            }
             return true;
         }
     }
