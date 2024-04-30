@@ -3,14 +3,13 @@ using Verse;
 
 namespace SimpleCameraSetting
 {
-    
     [HarmonyPatch]
-    public static class CameraPanSpeedPatch
+    public static class CameraDriverOnGUIPatch
     {
         private static float desiredSize;
-        private static float desiredSizeBefore=0f;
-        private static bool followCameraFlag=false;
-        [HarmonyPatch(typeof(CameraDriver),nameof(CameraDriver.CameraDriverOnGUI))]
+        private static float desiredSizeBefore = 0f;
+        //public static bool followCameraFlag = false;
+        [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CameraDriverOnGUI))]
         [HarmonyPrefix]
         public static bool Prefix(CameraDriver __instance)
         {
@@ -25,15 +24,15 @@ namespace SimpleCameraSetting
                 else if (desiredSize < 40f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_40;
                 else if (desiredSize < 60f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_60;
                 else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
-            }
-            desiredSizeBefore = desiredSize;
 
+                desiredSizeBefore = desiredSize;
+            }
             if (ModSetting.followCameraKey.JustPressed)
             {
-                followCameraFlag = !followCameraFlag;
-                Messages.Message("Camera Following"+(followCameraFlag?"On":"Off"),new MessageTypeDef());
-                
-                Current.CameraDriver.config.followSelected = followCameraFlag;
+                //followCameraFlag = !followCameraFlag;
+                Current.CameraDriver.config.followSelected = !Current.CameraDriver.config.followSelected;
+                Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef());
+
             }
             return true;
         }
