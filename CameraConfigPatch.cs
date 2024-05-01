@@ -16,6 +16,9 @@ namespace SimpleCameraSetting
                 Current.CameraDriver.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeed;
                 Current.CameraDriver.config.smoothZoom = SimpleCameraModSetting.modSetting.smoothZoom;
                 //Current.CameraDriver.config.followSelected = SettingPatch.cameraSetting.followSelected;
+#if DEBUG
+                Log.Message("CameraSetting Applied");
+#endif
             }
         }
         [HarmonyPatch(typeof(Game), nameof(Game.InitNewGame))]
@@ -23,7 +26,6 @@ namespace SimpleCameraSetting
         public static void PreFix()
         {
             CameraConfigPatch.ConfigPatch();
-            Log.Message("CameraSetting Applied");
             //Log.Message(Current.CameraDriver.config);
         }
 
@@ -32,9 +34,6 @@ namespace SimpleCameraSetting
         public static void LoadGamePreFix()
         {
             CameraConfigPatch.ConfigPatch();
-#if DEBUG
-            Log.Message("CameraSetting Applied");
-#endif
             //Log.Message(Current.CameraDriver.config);
         }
 

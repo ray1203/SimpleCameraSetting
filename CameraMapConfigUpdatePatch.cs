@@ -12,18 +12,18 @@ namespace SimpleCameraSetting
     {
         [HarmonyPatch(typeof(CameraMapConfig), nameof(CameraMapConfig.ConfigFixedUpdate_60))]
         [HarmonyPrefix]
-        public static bool Prefix( ref CameraMapConfig __instance,ref Vector3 rootPos,ref Vector3 velocity)
+        public static bool Prefix(ref CameraMapConfig __instance, ref Vector3 rootPos, ref Vector3 velocity)
         {
             if (__instance.followSelected)
             {
                 List<Pawn> selectedPawns = Find.Selector.SelectedPawns;
+                //added code
                 if (selectedPawns.Empty())
                 {
                     Current.CameraDriver.config.followSelected = false;
                     Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef());
-
-
                 }
+                //code end
                 if (selectedPawns.Count > 0)
                 {
                     Vector3 zero = Vector3.zero;
@@ -43,7 +43,10 @@ namespace SimpleCameraSetting
                         //original code
                         //rootPos = Vector3.MoveTowards(rootPos, target, 0.02f * Mathf.Max(Find.TickManager.TickRateMultiplier, 1f) * this.moveSpeedScale);
                         //Messages.Message("" + target, new MessageTypeDef());
+
+                        //added code
                         Find.CameraDriver.JumpToCurrentMapLoc(target);
+                        //code end
                     }
                 }
             }
