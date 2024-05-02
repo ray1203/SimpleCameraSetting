@@ -20,7 +20,7 @@ namespace SimpleCameraSetting
             get
             {
                 if (ModSetting._followCameraKey == null)
-                    ModSetting._followCameraKey = new KeyBind((string)"followCameraKey", KeyCode.Backspace, EventModifiers.None);
+                    ModSetting._followCameraKey = new KeyBind("", KeyCode.Backspace, EventModifiers.None);
                 return ModSetting._followCameraKey;
             }
         }
@@ -45,7 +45,8 @@ namespace SimpleCameraSetting
             smoothZoom = false;
             silhouetteDistance = 60f;
             displayDistance = 11f;
-            ModSetting._followCameraKey = new KeyBind((string)"followCameraKey", KeyCode.Backspace, EventModifiers.None);
+            ModSetting._followCameraKey = new KeyBind("", KeyCode.Backspace, EventModifiers.None);
+
             hideBracket = true;
 
             
@@ -97,13 +98,13 @@ namespace SimpleCameraSetting
             Rect rightRect = new Rect(inRect.x + columnWidth + 34f, inRect.y, columnWidth, inRect.height);
 
             listingStandard.Begin(inRect);
-            listingStandard.Label("Zoom Range".Translate());
+            listingStandard.Label("ZoomRange".Translate());
             listingStandard.IntRange(ref modSetting.sizeRange, 0, 100);
 
             //cameraSetting.zoomSpeed=listingStandard.SliderLabeled("Zoom Speed",cameraSetting.zoomSpeed, 0.1f, 10f);
 
             modSetting.zoomSpeed = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.zoomSpeed, 0.1f, 10f,
-                false, string.Format("{0} {1:F1}", (object)"Zoom Speed".Translate(), (object)modSetting.zoomSpeed),
+                false, string.Format("{0} {1:F1}", (object)"ZoomSpeed".Translate(), (object)modSetting.zoomSpeed),
                 (string)null, (string)null, -1f);
             listingStandard.Gap(2f);
             listingStandard.GapLine();
@@ -111,19 +112,20 @@ namespace SimpleCameraSetting
 
 
             modSetting.silhouetteDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.silhouetteDistance, 30f, 100f,
-                false, "",string.Format("{0} {1:F1}", (object)"Silhouette Distance".Translate(), (object)modSetting.silhouetteDistance)
+                false, "",string.Format("{0} {1:F1}", (object)"SilhouetteDistance".Translate(), (object)modSetting.silhouetteDistance)
                 , "set 100 to disable", -1f);
             listingStandard.Gap();
 
             modSetting.displayDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.displayDistance, 1f, 60f,
-                false, "", string.Format("{0} {1:F1}", (object)"Display Distance".Translate(), (object)modSetting.displayDistance)
+                false, "", string.Format("{0} {1:F1}", (object)"DisplayDistance".Translate(), (object)modSetting.displayDistance)
                 , "show item count, progress bar", -1f);
-            listingStandard.CheckboxLabeled("Smooth Zoom".Translate(), ref modSetting.smoothZoom, "");
+            listingStandard.CheckboxLabeled("SmoothZoom".Translate(), ref modSetting.smoothZoom, "");
 
             listingStandard.GapLine();
             listingStandard.Gap();
+            ModSetting.followCameraKey.label = (string)"followCameraKey".Translate();
             ModSetting.followCameraKey.Draw(listingStandard.GetRect(30f, 1f), 6);
-            listingStandard.CheckboxLabeled("Hide Bracket".Translate(), ref modSetting.hideBracket, "Hides bracket from pawn when you are using following camera".Translate());
+            listingStandard.CheckboxLabeled("HideBracket".Translate(), ref modSetting.hideBracket, "Hides bracket from pawn when you are using following camera".Translate());
 
 
 
@@ -132,7 +134,7 @@ namespace SimpleCameraSetting
             listingStandard.GapLine();
             listingStandard.Gap();
 
-            if (listingStandard.ButtonText("Default Value".Translate())) modSetting.SetDefault();
+            if (listingStandard.ButtonText("DefaultValue".Translate())) modSetting.SetDefault();
 
             listingStandard.NewColumn();
 
