@@ -49,7 +49,7 @@ namespace SimpleCameraSetting
 
             hideBracket = true;
 
-            
+
             moveSpeedScale_1 = 0.2f;
             moveSpeedScale_3 = 0.4f;
             moveSpeedScale_5 = 0.8f;
@@ -99,33 +99,32 @@ namespace SimpleCameraSetting
 
             listingStandard.Begin(inRect);
             listingStandard.Label("ZoomRange".Translate());
+            listingStandard.Gap(-4);
             listingStandard.IntRange(ref modSetting.sizeRange, 0, 100);
 
             //cameraSetting.zoomSpeed=listingStandard.SliderLabeled("Zoom Speed",cameraSetting.zoomSpeed, 0.1f, 10f);
-
-            modSetting.zoomSpeed = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.zoomSpeed, 0.1f, 10f,
-                false, string.Format("{0} {1:F1}", (object)"ZoomSpeed".Translate(), (object)modSetting.zoomSpeed),
-                (string)null, (string)null, -1f);
-            listingStandard.Gap(2f);
+            listingStandard.Label(string.Format("{0} {1:F1}", (object)"ZoomSpeed".Translate(), (object)modSetting.zoomSpeed));
+            modSetting.zoomSpeed = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.zoomSpeed, 0.1f, 10f);
             listingStandard.GapLine();
             listingStandard.Gap();
 
+            listingStandard.Label(string.Format("{0} {1:F1}", (object)"SilhouetteDistance".Translate(), (object)modSetting.silhouetteDistance),
+                -1, "SilhouetteDistanceTooltip".Translate());
+            modSetting.silhouetteDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.silhouetteDistance, 30f, 100f);
 
-            modSetting.silhouetteDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.silhouetteDistance, 30f, 100f,
-                false, "",string.Format("{0} {1:F1}", (object)"SilhouetteDistance".Translate(), (object)modSetting.silhouetteDistance)
-                , "set 100 to disable", -1f);
-            listingStandard.Gap();
 
-            modSetting.displayDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.displayDistance, 1f, 60f,
-                false, "", string.Format("{0} {1:F1}", (object)"DisplayDistance".Translate(), (object)modSetting.displayDistance)
-                , "show item count, progress bar", -1f);
+            listingStandard.Label(string.Format("{0} {1:F1}", (object)"DisplayDistance".Translate(), (object)modSetting.displayDistance),
+    -1, "DisplayDistanceTooltip".Translate());
+            modSetting.displayDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f),modSetting.displayDistance,1f,60f);
+
             listingStandard.CheckboxLabeled("SmoothZoom".Translate(), ref modSetting.smoothZoom, "");
 
             listingStandard.GapLine();
             listingStandard.Gap();
             ModSetting.followCameraKey.label = (string)"followCameraKey".Translate();
             ModSetting.followCameraKey.Draw(listingStandard.GetRect(30f, 1f), 6);
-            listingStandard.CheckboxLabeled("HideBracket".Translate(), ref modSetting.hideBracket, "Hides bracket from pawn when you are using following camera".Translate());
+            //Hides bracket from pawn when you are using following camera
+            listingStandard.CheckboxLabeled("HideBracket".Translate(), ref modSetting.hideBracket, "HideBracketTooltip".Translate());
 
 
 
@@ -139,14 +138,14 @@ namespace SimpleCameraSetting
             listingStandard.NewColumn();
 
 
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<1)", ref modSetting.moveSpeedScale_1);
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<3)", ref modSetting.moveSpeedScale_3);
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<5)", ref modSetting.moveSpeedScale_5);
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<10)", ref modSetting.moveSpeedScale_10);
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<20)", ref modSetting.moveSpeedScale_20);
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<40)", ref modSetting.moveSpeedScale_40);
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<60)", ref modSetting.moveSpeedScale_60);
-            DrawCameraSpeedSetting(listingStandard, "Camera Speed (zoom<100)", ref modSetting.moveSpeedScale_100);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed1".Translate(), ref modSetting.moveSpeedScale_1);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed3".Translate(), ref modSetting.moveSpeedScale_3);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed5".Translate(), ref modSetting.moveSpeedScale_5);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed10".Translate(), ref modSetting.moveSpeedScale_10);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed20".Translate(), ref modSetting.moveSpeedScale_20);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed40".Translate(), ref modSetting.moveSpeedScale_40);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed60".Translate(), ref modSetting.moveSpeedScale_60);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed100".Translate(), ref modSetting.moveSpeedScale_100);
 
 
             listingStandard.End();
@@ -176,7 +175,7 @@ namespace SimpleCameraSetting
             Rect valueRect = new Rect(labelRect.xMax, rect.y, 30f, rect.height);
             Rect buttonRect = new Rect(valueRect.xMax + 5f, rect.y, 30f, rect.height);
 
-            Widgets.Label(labelRect, label + " : ");
+            Widgets.Label(labelRect, label);
             Widgets.Label(valueRect, currentValue.ToString("0.0"));
 
             if (Widgets.ButtonText(buttonRect, "<<") && currentValue > 0f)
