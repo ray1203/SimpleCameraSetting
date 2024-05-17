@@ -10,6 +10,7 @@ namespace SimpleCameraSetting
     [HarmonyPatch]
     public static class CameraMapConfigUpdatePatch
     {
+        static List<Pawn> lastSelectedPawns=new List<Pawn>();
         [HarmonyPatch(typeof(CameraMapConfig), nameof(CameraMapConfig.ConfigFixedUpdate_60))]
         [HarmonyPrefix]
         public static bool Prefix(ref CameraMapConfig __instance, ref Vector3 rootPos, ref Vector3 velocity)
@@ -17,12 +18,20 @@ namespace SimpleCameraSetting
             if (__instance.followSelected)
             {
                 List<Pawn> selectedPawns = Find.Selector.SelectedPawns;
+
                 //added code
                 if (selectedPawns.Empty())
                 {
-                    Current.CameraDriver.config.followSelected = false;
-                    Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef());
-                }
+                    if (SimpleCameraModSetting.modSetting.autoOffFollow)
+                    {
+                        Current.CameraDriver.config.followSelected = false;
+                        Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef());
+                    } 
+                    else
+                    {
+                        selectedPawns = lastSelectedPawns;
+                    }
+                }else lastSelectedPawns = new List<Pawn>(selectedPawns);
                 //code end
                 if (selectedPawns.Count > 0)
                 {

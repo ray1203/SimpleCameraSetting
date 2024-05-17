@@ -14,6 +14,8 @@ namespace SimpleCameraSetting
         public float displayDistance;
         private static KeyBind _followCameraKey;
         public bool hideBracket;
+        public bool zoomToMouse;
+
         public static KeyBind followCameraKey
         {
             // Method get_FollowMeKey with token 06000042
@@ -24,7 +26,7 @@ namespace SimpleCameraSetting
                 return ModSetting._followCameraKey;
             }
         }
-
+        public bool autoOffFollow;
 
         public float moveSpeedScale_1;
         public float moveSpeedScale_3;
@@ -48,7 +50,8 @@ namespace SimpleCameraSetting
             ModSetting._followCameraKey = new KeyBind("", KeyCode.Backspace, EventModifiers.None);
 
             hideBracket = true;
-
+            autoOffFollow = true;
+            zoomToMouse = true;
 
             moveSpeedScale_1 = 0.2f;
             moveSpeedScale_3 = 0.4f;
@@ -68,6 +71,8 @@ namespace SimpleCameraSetting
             Scribe_Values.Look<float>(ref displayDistance, "displayDistance", 11f);
             Scribe_Deep.Look<KeyBind>(ref ModSetting._followCameraKey, "followCameraKey", Array.Empty<object>());
             Scribe_Values.Look<bool>(ref hideBracket, "hideBracket", true);
+            Scribe_Values.Look<bool>(ref autoOffFollow, "autoOffFollow", true);
+            Scribe_Values.Look<bool>(ref zoomToMouse, "zoomToMouse", Prefs.ZoomToMouse);
 
 
             Scribe_Values.Look(ref moveSpeedScale_1, "moveSpeedScale_1", 0.2f);
@@ -118,15 +123,15 @@ namespace SimpleCameraSetting
             modSetting.displayDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f),modSetting.displayDistance,1f,60f);
 
             listingStandard.CheckboxLabeled("SmoothZoom".Translate(), ref modSetting.smoothZoom, "");
-
+            listingStandard.CheckboxLabeled("ZoomToMouse".Translate(), ref modSetting.zoomToMouse);
+             
             listingStandard.GapLine();
             listingStandard.Gap();
             ModSetting.followCameraKey.label = (string)"followCameraKey".Translate();
             ModSetting.followCameraKey.Draw(listingStandard.GetRect(30f, 1f), 6);
             //Hides bracket from pawn when you are using following camera
             listingStandard.CheckboxLabeled("HideBracket".Translate(), ref modSetting.hideBracket, "HideBracketTooltip".Translate());
-
-
+            listingStandard.CheckboxLabeled("AutoOffFollow".Translate(), ref modSetting.autoOffFollow, "AutoOffFollowTooltip".Translate());
 
             //listingStandard.CheckboxLabeled("Follow Selected", ref cameraSetting.followSelected, "Camera focus on selected pawn(Uses Vanila Options)");
 
@@ -159,6 +164,7 @@ namespace SimpleCameraSetting
                 if (modSetting.sizeRange.min == 0) modSetting.sizeRange.max++;
                 else modSetting.sizeRange.min--;
             }
+            Prefs.ZoomToMouse = modSetting.zoomToMouse;
             CameraConfigPatch.ConfigPatch();
             base.WriteSettings();
         }
