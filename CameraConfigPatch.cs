@@ -12,6 +12,7 @@ namespace SimpleCameraSetting
             if (Current.CameraDriver != null)
             {
                 Current.CameraDriver.config.sizeRange.min = SimpleCameraModSetting.modSetting.sizeRange.min;
+                if (Current.CameraDriver.config.sizeRange.min == 0) Current.CameraDriver.config.sizeRange.min = 0.001f;
                 Current.CameraDriver.config.sizeRange.max = SimpleCameraModSetting.modSetting.sizeRange.max;
                 Current.CameraDriver.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeed;
                 Current.CameraDriver.config.smoothZoom = SimpleCameraModSetting.modSetting.smoothZoom;
@@ -22,7 +23,7 @@ namespace SimpleCameraSetting
             }
         }
         [HarmonyPatch(typeof(Game), nameof(Game.InitNewGame))]
-        [HarmonyPrefix]
+        [HarmonyPrefix] 
         public static void PreFix()
         {
             CameraConfigPatch.ConfigPatch();

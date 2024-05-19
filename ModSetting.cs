@@ -36,13 +36,14 @@ namespace SimpleCameraSetting
         public float moveSpeedScale_40;
         public float moveSpeedScale_60;
         public float moveSpeedScale_100;
+        public float moveSpeedScale_200;
         public ModSetting()
         {
             SetDefault();
         }
         public void SetDefault()
         {
-            sizeRange = new IntRange(0, 60);
+            sizeRange = new IntRange(0, 100);
             zoomSpeed = 2f;
             smoothZoom = false;
             silhouetteDistance = 60f;
@@ -58,13 +59,14 @@ namespace SimpleCameraSetting
             moveSpeedScale_5 = 0.8f;
             moveSpeedScale_10 = 1.5f;
             moveSpeedScale_20 = 2f;
-            moveSpeedScale_40 = 3f;
-            moveSpeedScale_60 = 4f;
-            moveSpeedScale_100 = 5f;
+            moveSpeedScale_40 = 2f;
+            moveSpeedScale_60 = 2f;
+            moveSpeedScale_100 = 2f;
+            moveSpeedScale_200 = 2f;
         }
         public override void ExposeData()
         {
-            Scribe_Values.Look<IntRange>(ref sizeRange, "sizeRange", new IntRange(0, 60));
+            Scribe_Values.Look<IntRange>(ref sizeRange, "sizeRange", new IntRange(0, 100));
             Scribe_Values.Look<float>(ref zoomSpeed, "zoomSpeed", 2f);
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
@@ -80,9 +82,10 @@ namespace SimpleCameraSetting
             Scribe_Values.Look(ref moveSpeedScale_5, "moveSpeedScale_5", 0.8f);
             Scribe_Values.Look(ref moveSpeedScale_10, "moveSpeedScale_10", 1.5f);
             Scribe_Values.Look(ref moveSpeedScale_20, "moveSpeedScale_20", 2f);
-            Scribe_Values.Look(ref moveSpeedScale_40, "moveSpeedScale_40", 3f);
-            Scribe_Values.Look(ref moveSpeedScale_60, "moveSpeedScale_60", 4f);
-            Scribe_Values.Look(ref moveSpeedScale_100, "moveSpeedScale_100", 5f);
+            Scribe_Values.Look(ref moveSpeedScale_40, "moveSpeedScale_40", 2f);
+            Scribe_Values.Look(ref moveSpeedScale_60, "moveSpeedScale_60", 2f);
+            Scribe_Values.Look(ref moveSpeedScale_100, "moveSpeedScale_100", 2f);
+            Scribe_Values.Look(ref moveSpeedScale_200, "moveSpeedScale_200", 2f);
             base.ExposeData();
 
         }
@@ -105,7 +108,7 @@ namespace SimpleCameraSetting
             listingStandard.Begin(inRect);
             listingStandard.Label("ZoomRange".Translate());
             listingStandard.Gap(-4);
-            listingStandard.IntRange(ref modSetting.sizeRange, 0, 100);
+            listingStandard.IntRange(ref modSetting.sizeRange, 0, 200);
 
             //cameraSetting.zoomSpeed=listingStandard.SliderLabeled("Zoom Speed",cameraSetting.zoomSpeed, 0.1f, 10f);
             listingStandard.Label(string.Format("{0} {1:F1}", (object)"ZoomSpeed".Translate(), (object)modSetting.zoomSpeed));
@@ -151,6 +154,7 @@ namespace SimpleCameraSetting
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed40".Translate(), ref modSetting.moveSpeedScale_40);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed60".Translate(), ref modSetting.moveSpeedScale_60);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed100".Translate(), ref modSetting.moveSpeedScale_100);
+            DrawCameraSpeedSetting(listingStandard, "CameraSpeed200".Translate(), ref modSetting.moveSpeedScale_200);
 
 
             listingStandard.End();

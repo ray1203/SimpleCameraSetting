@@ -23,7 +23,8 @@ namespace SimpleCameraSetting
                 else if (desiredSize < 20f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_20;
                 else if (desiredSize < 40f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_40;
                 else if (desiredSize < 60f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_60;
-                else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
+                else if (desiredSize < 100f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
+                else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_200;
 
                 desiredSizeBefore = desiredSize;
             }
