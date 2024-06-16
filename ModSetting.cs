@@ -142,7 +142,7 @@ namespace SimpleCameraSetting
             listingStandard.Gap();
 
             if (listingStandard.ButtonText("DefaultValue".Translate())) modSetting.SetDefault();
-
+            //--------------------------------------우측 부분-------------------------------------------------
             listingStandard.NewColumn();
 
 
@@ -161,6 +161,7 @@ namespace SimpleCameraSetting
             base.DoSettingsWindowContents(inRect);
 
         }
+        //설정 창 닫을 때 예외처리
         public override void WriteSettings()
         {
             if (modSetting.sizeRange.min == modSetting.sizeRange.max)

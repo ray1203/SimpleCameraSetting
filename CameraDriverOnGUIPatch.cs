@@ -14,6 +14,8 @@ namespace SimpleCameraSetting
         public static bool Prefix(CameraDriver __instance)
         {
             desiredSize = Refs.desiredSize.Invoke(__instance);
+            //카메라 크기에 따라 카메라 속도를 변경해줌
+            //카메라 크기가 변경될 경우에만 실행
             if (desiredSizeBefore != desiredSize)
             {
                 if (desiredSize < 1f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_1;
@@ -28,6 +30,7 @@ namespace SimpleCameraSetting
 
                 desiredSizeBefore = desiredSize;
             }
+            //폰 따라가는 키가 눌렸을 경우
             if (ModSetting.followCameraKey.JustPressed)
             {
                 //followCameraFlag = !followCameraFlag;
