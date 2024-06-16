@@ -8,6 +8,7 @@ namespace SimpleCameraSetting
     {
         private static float desiredSize;
         private static float desiredSizeBefore = 0f;
+        private static Message zoomMessage = new Message("", new MessageTypeDef());
         //public static bool followCameraFlag = false;
         [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CameraDriverOnGUI))]
         [HarmonyPrefix]
@@ -28,6 +29,9 @@ namespace SimpleCameraSetting
                 else if (desiredSize < 100f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
                 else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_200;
 
+                zoomMessage.text = string.Format("Current Zoom : {0:F2}          ",desiredSize);
+                if (SimpleCameraModSetting.modSetting.zoomDebugMessage) Messages.Message(zoomMessage);
+                //Messages.MessagesDoGUI();
                 desiredSizeBefore = desiredSize;
             }
             //폰 따라가는 키가 눌렸을 경우
