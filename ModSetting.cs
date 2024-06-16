@@ -11,6 +11,8 @@ namespace SimpleCameraSetting
         public float zoomSpeed;
         public bool smoothZoom;
         public float silhouetteDistance;
+        public bool hidePawnName;
+
         public float displayDistance;
         private static KeyBind _followCameraKey;
         public bool hideBracket;
@@ -47,6 +49,7 @@ namespace SimpleCameraSetting
             zoomSpeed = 2f;
             smoothZoom = false;
             silhouetteDistance = 60f;
+            hidePawnName = false;
             displayDistance = 11f;
             ModSetting._followCameraKey = new KeyBind("", KeyCode.Backspace, EventModifiers.None);
 
@@ -70,6 +73,7 @@ namespace SimpleCameraSetting
             Scribe_Values.Look<float>(ref zoomSpeed, "zoomSpeed", 2f);
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
+            Scribe_Values.Look<bool>(ref hidePawnName, "hidePawnName", false);
             Scribe_Values.Look<float>(ref displayDistance, "displayDistance", 11f);
             Scribe_Deep.Look<KeyBind>(ref ModSetting._followCameraKey, "followCameraKey", Array.Empty<object>());
             Scribe_Values.Look<bool>(ref hideBracket, "hideBracket", true);
@@ -120,6 +124,7 @@ namespace SimpleCameraSetting
                 -1, "SilhouetteDistanceTooltip".Translate());
             modSetting.silhouetteDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.silhouetteDistance, 30f, 100f);
 
+            listingStandard.CheckboxLabeled("HidePawnName".Translate(), ref modSetting.hidePawnName, "HidePawnNameTooltip".Translate());
 
             listingStandard.Label(string.Format("{0} {1:F1}", (object)"DisplayDistance".Translate(), (object)modSetting.displayDistance),
     -1, "DisplayDistanceTooltip".Translate());

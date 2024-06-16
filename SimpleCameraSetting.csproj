@@ -53,6 +53,7 @@
     <Compile Include="CameraMapConfigUpdatePatch.cs" />
     <Compile Include="DrawSelectionBracketForPatch.cs" />
     <Compile Include="ModSetting.cs" />
+    <Compile Include="PawnNamePatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Refs.cs" />
     <Compile Include="SilhouetteUtilityPatch.cs" />
