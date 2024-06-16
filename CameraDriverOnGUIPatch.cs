@@ -29,8 +29,14 @@ namespace SimpleCameraSetting
                 else if (desiredSize < 100f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
                 else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_200;
 
-                zoomMessage.text = string.Format("Current Zoom : {0:F2}          ",desiredSize);
-                if (SimpleCameraModSetting.modSetting.zoomDebugMessage) Messages.Message(zoomMessage);
+
+                //현재 줌을 메시지로 출력
+                if (SimpleCameraModSetting.modSetting.zoomDebugMessage)
+                {
+                    zoomMessage.ResetTimer();
+                    zoomMessage.text = string.Format("Current Zoom : {0:F2}          ", desiredSize);
+                    Messages.Message(zoomMessage);
+                }
                 //Messages.MessagesDoGUI();
                 desiredSizeBefore = desiredSize;
             }
