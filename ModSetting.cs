@@ -18,7 +18,6 @@ namespace SimpleCameraSetting
         public bool hideBracket;
         public bool zoomToMouse;
 
-        public bool zoomDebugMessage;
         public static KeyBind followCameraKey
         {
             // Method get_FollowMeKey with token 06000042
@@ -57,7 +56,6 @@ namespace SimpleCameraSetting
             hideBracket = true;
             autoOffFollow = true;
             zoomToMouse = true;
-            zoomDebugMessage = false;
 
             moveSpeedScale_1 = 0.2f;
             moveSpeedScale_3 = 0.4f;
@@ -81,7 +79,7 @@ namespace SimpleCameraSetting
             Scribe_Values.Look<bool>(ref hideBracket, "hideBracket", true);
             Scribe_Values.Look<bool>(ref autoOffFollow, "autoOffFollow", true);
             Scribe_Values.Look<bool>(ref zoomToMouse, "zoomToMouse", Prefs.ZoomToMouse);
-            Scribe_Values.Look<bool>(ref zoomDebugMessage, "zoomDebugMessage", false);
+
 
             Scribe_Values.Look(ref moveSpeedScale_1, "moveSpeedScale_1", 0.2f);
             Scribe_Values.Look(ref moveSpeedScale_3, "moveSpeedScale_3", 0.4f);
@@ -148,7 +146,6 @@ namespace SimpleCameraSetting
             listingStandard.GapLine();
             listingStandard.Gap();
 
-            listingStandard.CheckboxLabeled("ZoomDebugMessage".Translate(), ref modSetting.zoomDebugMessage, "ZoomDebugMessageTooltip".Translate());
             if (listingStandard.ButtonText("DefaultValue".Translate())) modSetting.SetDefault();
             //--------------------------------------우측 부분-------------------------------------------------
             listingStandard.NewColumn();
