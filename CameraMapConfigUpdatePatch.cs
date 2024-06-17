@@ -18,8 +18,7 @@ namespace SimpleCameraSetting
             if (__instance.followSelected)
             {
                 List<Pawn> selectedPawns = Find.Selector.SelectedPawns;
-                //폰을 선택하고 있지 않을 경우 폰 따라가기 기능을 자동으로 비활성화함
-                //modSetting.autoOffFollow가 켜져있어야만 작동
+
                 //added code
                 if (selectedPawns.Empty())
                 {
@@ -53,8 +52,7 @@ namespace SimpleCameraSetting
                         //original code
                         //rootPos = Vector3.MoveTowards(rootPos, target, 0.02f * Mathf.Max(Find.TickManager.TickRateMultiplier, 1f) * this.moveSpeedScale);
                         //Messages.Message("" + target, new MessageTypeDef());
-                        
-                        //카메라가 폰을 따라가는 방식을 즉시 이동으로 바꿈
+
                         //added code
                         Find.CameraDriver.JumpToCurrentMapLoc(target);
                         //code end

@@ -6,7 +6,6 @@ namespace SimpleCameraSetting
     [HarmonyPatch]
     public static class CameraConfigPatch
     {
-        //카메라 설정들을 인게임에 적용
         public static void ConfigPatch()
         {
 
@@ -23,7 +22,6 @@ namespace SimpleCameraSetting
 #endif
             }
         }
-        //새 게임 시작 시 설정 적용
         [HarmonyPatch(typeof(Game), nameof(Game.InitNewGame))]
         [HarmonyPrefix] 
         public static void PreFix()
@@ -31,7 +29,7 @@ namespace SimpleCameraSetting
             CameraConfigPatch.ConfigPatch();
             //Log.Message(Current.CameraDriver.config);
         }
-        //게임 로드 시 설정 적용
+
         [HarmonyPatch(typeof(Game), nameof(Game.LoadGame))]
         [HarmonyPrefix]
         public static void LoadGamePreFix()
@@ -39,8 +37,7 @@ namespace SimpleCameraSetting
             CameraConfigPatch.ConfigPatch();
             //Log.Message(Current.CameraDriver.config);
         }
-        //카메라 줌에 따라서 Enum CameraZoomRange의 값이 변경되는 함수 수정
-        //CameraZoomRange의 변경 기준을 변경함
+
         [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CurrentZoom), MethodType.Getter)]
         [HarmonyPrefix]
         public static bool CurrentZoomPreFix(CameraDriver __instance, ref CameraZoomRange __result)

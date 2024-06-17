@@ -11,14 +11,24 @@ using Verse;
 
 namespace SimpleCameraSetting
 {
+    /*
+    [HarmonyPatch]
+    public static class CanHighlightAnyPatch
+    {
+        [HarmonyPatch(typeof(SilhouetteUtility), nameof(SilhouetteUtility.CanHighlightAny))]
+        [HarmonyPrefix]
+        public static bool Prefix(ref bool __result)
+        {
+            __result = true;
+            return false;
+        }
+    }
+    */
     [HarmonyPatch]
     public static class GetAlphaPatch
     {
         static float lastCachedAlpha;
         static int lastCachedAlphaFrame;
-        //축소가 많이 될 경우 폰을 실루엣으로 표시하는 코드
-        //기준을 모드 세팅의 값을 참고하도록 바꿈
-        //만약 100일 경우 기존 코드를 사용함
         [HarmonyPatch(typeof(SilhouetteUtility), "GetAlpha")]
         [HarmonyPrefix]
         public static bool Prefix(ref float __result)
@@ -42,7 +52,6 @@ namespace SimpleCameraSetting
     [HarmonyPatch]
     public static class CanHighlightAnyPatch
     {
-        
         [HarmonyPatch(typeof(SilhouetteUtility), nameof(SilhouetteUtility.CanHighlightAny))]
         [HarmonyPrefix]
         public static bool Prefix(ref bool __result)
@@ -59,15 +68,32 @@ namespace SimpleCameraSetting
             return false; // Prevent the original method from executing
         }
     }
-    [HarmonyPatch]
-    public static class AdjustScalePatch
+    /*
+    [HarmonyPatch(typeof(SilhouetteUtility))]
+    public static class SilhouetteUtility_Patch
     {
-        [HarmonyPatch (typeof(SilhouetteUtility), nameof(SilhouetteUtility.AdjustScale))]
-        [HarmonyPrefix]
-        public static bool Prefix(ref float __result)
+        [HarmonyTranspiler]
+        [HarmonyPatch("GetAlpha")]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            __result = 100f;
-            return false;
+            var instructionList = new List<CodeInstruction>(instructions);
+            var codesToPatch = new[]
+            {
+                new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Verse.FloatRange), "max")),
+                new CodeInstruction(OpCodes.Ldc_R4, 0.849999964f),
+                new CodeInstruction(OpCodes.Mul)
+            };
+
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                if (instructionList.Skip(i).Take(codesToPatch.Length).SequenceEqual(codesToPatch))
+                {
+                    instructionList[i + 1].operand = 60f; // sizeRange.max 값을 60으로 변경
+                    i += codesToPatch.Length - 1; // 다음 코드로 건너뛰기
+                }
+            }
+
+            return instructionList.AsEnumerable();
         }
-    }
+    }*/
 }
