@@ -8,6 +8,7 @@ namespace SimpleCameraSetting
     {
         private static float desiredSize;
         private static float desiredSizeBefore = 0f;
+        private static Message zoomMessage = new Message("", new MessageTypeDef());
         //public static bool followCameraFlag = false;
         [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CameraDriverOnGUI))]
         [HarmonyPrefix]
@@ -26,6 +27,13 @@ namespace SimpleCameraSetting
                 else if (desiredSize < 100f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
                 else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_200;
 
+                //현재 줌을 메시지로 출력
+                if (SimpleCameraModSetting.modSetting.zoomDebugMessage)
+                {
+                    zoomMessage.ResetTimer();
+                    zoomMessage.text = string.Format("Current Zoom : {0:F2}          ", desiredSize);
+                    Messages.Message(zoomMessage);
+                }
                 desiredSizeBefore = desiredSize;
             }
             if (ModSetting.followCameraKey.JustPressed)
