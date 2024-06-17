@@ -1,4 +1,11 @@
 ﻿using HarmonyLib;
+using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -52,6 +59,7 @@ namespace SimpleCameraSetting
             return false; // Prevent the original method from executing
         }
     }
+    /*
     [HarmonyPatch]
     public static class AdjustScalePatch
     {
@@ -62,5 +70,6 @@ namespace SimpleCameraSetting
             __result = 100f;
             return false;
         }
-    }
+    }*/
 }
+    

@@ -13,7 +13,8 @@ namespace SimpleCameraSetting
         static bool Prefix()
         {
             if(SimpleCameraModSetting.modSetting.hidePawnName&&
-                (double)Find.CameraDriver.ZoomRootSize >= SimpleCameraModSetting.modSetting.silhouetteDistance * 0.89999997615814209)return false;
+                (double)Find.CameraDriver.ZoomRootSize >= SimpleCameraModSetting.modSetting.silhouetteDistance * 0.89999997615814209)
+                return false;
             return true;
         }
     }
