@@ -106,49 +106,55 @@ namespace SimpleCameraSetting
             Listing_Standard listingStandard = new Listing_Standard();
             float columnWidth = (inRect.width - 34f) / 2f;
             listingStandard.ColumnWidth = columnWidth;
-            Rect leftRect = new Rect(inRect.x, inRect.y, columnWidth, inRect.height);
-            Rect rightRect = new Rect(inRect.x + columnWidth + 34f, inRect.y, columnWidth, inRect.height);
 
             listingStandard.Begin(inRect);
+
+            // Zoom range
             listingStandard.Label("ZoomRange".Translate());
             listingStandard.Gap(-4);
             listingStandard.IntRange(ref modSetting.sizeRange, 0, 200);
 
-            //cameraSetting.zoomSpeed=listingStandard.SliderLabeled("Zoom Speed",cameraSetting.zoomSpeed, 0.1f, 10f);
-            listingStandard.Label(string.Format("{0} {1:F1}", (object)"ZoomSpeed".Translate(), (object)modSetting.zoomSpeed));
+            // Zoom speed
+            Rect zoomSpeedRect = listingStandard.GetRect(Text.LineHeight);
+            Widgets.Label(zoomSpeedRect, "ZoomSpeed".Translate() + ": " + modSetting.zoomSpeed.ToString("F1"));
             modSetting.zoomSpeed = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.zoomSpeed, 0.1f, 10f);
+
             listingStandard.GapLine();
             listingStandard.Gap();
 
-            listingStandard.Label(string.Format("{0} {1:F1}", (object)"SilhouetteDistance".Translate(), (object)modSetting.silhouetteDistance),
-                -1, "SilhouetteDistanceTooltip".Translate());
+            // Silhouette Distance (with tooltip)
+            Rect silRect = listingStandard.GetRect(Text.LineHeight);
+            Widgets.Label(silRect, "SilhouetteDistance".Translate() + ": " + modSetting.silhouetteDistance.ToString("F1"));
+            TooltipHandler.TipRegion(silRect, "SilhouetteDistanceTooltip".Translate());
             modSetting.silhouetteDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.silhouetteDistance, 30f, 100f);
 
-
-            listingStandard.Label(string.Format("{0} {1:F1}", (object)"DisplayDistance".Translate(), (object)modSetting.displayDistance),
-    -1, "DisplayDistanceTooltip".Translate());
-            modSetting.displayDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f),modSetting.displayDistance,1f,60f);
+            // Display Distance (with tooltip)
+            Rect dispRect = listingStandard.GetRect(Text.LineHeight);
+            Widgets.Label(dispRect, "DisplayDistance".Translate() + ": " + modSetting.displayDistance.ToString("F1"));
+            TooltipHandler.TipRegion(dispRect, "DisplayDistanceTooltip".Translate());
+            modSetting.displayDistance = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.displayDistance, 1f, 60f);
 
             listingStandard.CheckboxLabeled("SmoothZoom".Translate(), ref modSetting.smoothZoom, "");
             listingStandard.CheckboxLabeled("ZoomToMouse".Translate(), ref modSetting.zoomToMouse);
-             
+
             listingStandard.GapLine();
             listingStandard.Gap();
-            ModSetting.followCameraKey.label = (string)"followCameraKey".Translate();
+
+            ModSetting.followCameraKey.label = "followCameraKey".Translate();
             ModSetting.followCameraKey.Draw(listingStandard.GetRect(30f, 1f), 6);
-            //Hides bracket from pawn when you are using following camera
+
             listingStandard.CheckboxLabeled("HideBracket".Translate(), ref modSetting.hideBracket, "HideBracketTooltip".Translate());
             listingStandard.CheckboxLabeled("AutoOffFollow".Translate(), ref modSetting.autoOffFollow, "AutoOffFollowTooltip".Translate());
 
-            //listingStandard.CheckboxLabeled("Follow Selected", ref cameraSetting.followSelected, "Camera focus on selected pawn(Uses Vanila Options)");
-
             listingStandard.GapLine();
             listingStandard.Gap();
+
             listingStandard.CheckboxLabeled("ZoomDebugMessage".Translate(), ref modSetting.zoomDebugMessage, "ZoomDebugMessageTooltip".Translate());
-            if (listingStandard.ButtonText("DefaultValue".Translate())) modSetting.SetDefault();
+
+            if (listingStandard.ButtonText("DefaultValue".Translate()))
+                modSetting.SetDefault();
 
             listingStandard.NewColumn();
-
 
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed1".Translate(), ref modSetting.moveSpeedScale_1);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed3".Translate(), ref modSetting.moveSpeedScale_3);
@@ -160,10 +166,9 @@ namespace SimpleCameraSetting
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed100".Translate(), ref modSetting.moveSpeedScale_100);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed200".Translate(), ref modSetting.moveSpeedScale_200);
 
-
             listingStandard.End();
-            base.DoSettingsWindowContents(inRect);
 
+            base.DoSettingsWindowContents(inRect);
         }
         public override void WriteSettings()
         {
