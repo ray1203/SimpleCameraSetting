@@ -7,7 +7,7 @@ namespace SimpleCameraSetting
 {
     public class ModSetting : ModSettings
     {
-        public IntRange sizeRange;
+        public FloatRange sizeRange;
         public float zoomSpeed;
         public bool smoothZoom;
         public float silhouetteDistance;
@@ -45,7 +45,7 @@ namespace SimpleCameraSetting
         }
         public void SetDefault()
         {
-            sizeRange = new IntRange(0, 100);
+            sizeRange = new FloatRange(0.5f, 100);
             zoomSpeed = 2f;
             smoothZoom = false;
             silhouetteDistance = 60f;
@@ -69,7 +69,7 @@ namespace SimpleCameraSetting
         }
         public override void ExposeData()
         {
-            Scribe_Values.Look<IntRange>(ref sizeRange, "sizeRange", new IntRange(0, 100));
+            Scribe_Values.Look<FloatRange>(ref sizeRange, "sizeRange", new FloatRange(0.5f, 100));
             Scribe_Values.Look<float>(ref zoomSpeed, "zoomSpeed", 2f);
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
@@ -97,6 +97,9 @@ namespace SimpleCameraSetting
     public class SimpleCameraModSetting : Mod
     {
         public static ModSetting modSetting;
+        //ZoomRange용 버퍼
+        private string _sizeMinBuf;
+        private string _sizeMaxBuf;
         public SimpleCameraModSetting(ModContentPack content) : base(content)
         {
             modSetting = GetSettings<ModSetting>();
@@ -109,10 +112,62 @@ namespace SimpleCameraSetting
 
             listingStandard.Begin(inRect);
 
-            // Zoom range
             listingStandard.Label("ZoomRange".Translate());
             listingStandard.Gap(-4);
-            listingStandard.IntRange(ref modSetting.sizeRange, 0, 200);
+
+            // 최초 진입 시 버퍼 초기화(한 번만)
+            if (_sizeMinBuf == null) _sizeMinBuf = modSetting.sizeRange.min.ToString("0.###");
+            if (_sizeMaxBuf == null) _sizeMaxBuf = modSetting.sizeRange.max.ToString("0.###");
+
+            // 1) 슬라이더
+            Rect zoomRangeRect = listingStandard.GetRect(28f);
+            float prevMin = modSetting.sizeRange.min;
+            float prevMax = modSetting.sizeRange.max;
+
+            Widgets.FloatRange(
+                zoomRangeRect,
+                0xC0FFEE,                    // unique id
+                ref modSetting.sizeRange,
+                0f, 200f,
+                null,
+                ToStringStyle.FloatTwo,
+                0f,
+                GameFont.Small,
+                null,
+                0.1f                         // step 0.1
+            );
+
+            //2) 슬라이더로 값이 바뀌었으면 버퍼 문자열을 갱신해 텍스트 필드에 반영
+            bool sliderChanged = !Mathf.Approximately(prevMin, modSetting.sizeRange.min)
+                              || !Mathf.Approximately(prevMax, modSetting.sizeRange.max);
+            if (sliderChanged)
+            {
+                _sizeMinBuf = modSetting.sizeRange.min.ToString("0.###");
+                _sizeMaxBuf = modSetting.sizeRange.max.ToString("0.###");
+            }
+            // 3) 한 줄에 Min / Max 입력 필드 배치
+            Rect row = listingStandard.GetRect(Text.LineHeight);
+            float gap = 8f;
+            float half = (row.width - gap) * 0.5f;
+
+            Rect minCol = new Rect(row.x, row.y, half, row.height);
+            Rect minField = new Rect(minCol.x, minCol.y, minCol.width, minCol.height);
+            Widgets.TextFieldNumeric(minField, ref modSetting.sizeRange.min, ref _sizeMinBuf, 0f, 200f);
+
+            Rect maxCol = new Rect(row.x + half + gap, row.y, half, row.height);
+            Rect maxField = new Rect(maxCol.x, maxCol.y, maxCol.width, maxCol.height);
+            Widgets.TextFieldNumeric(maxField, ref modSetting.sizeRange.max, ref _sizeMaxBuf, 0f, 200f);
+
+            // 4) min ≤ max 보정
+            modSetting.sizeRange.min = Mathf.Clamp(modSetting.sizeRange.min, 0f, 200f);
+            modSetting.sizeRange.max = Mathf.Clamp(modSetting.sizeRange.max, 0f, 200f);
+            if (modSetting.sizeRange.min > modSetting.sizeRange.max)
+            {
+                modSetting.sizeRange.max = modSetting.sizeRange.min;
+                _sizeMaxBuf = modSetting.sizeRange.max.ToString("0.###");
+            }
+
+            listingStandard.Gap(4f);
 
             // Zoom speed
             Rect zoomSpeedRect = listingStandard.GetRect(Text.LineHeight);
