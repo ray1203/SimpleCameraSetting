@@ -37,25 +37,39 @@ namespace SimpleCameraSetting
             CameraConfigPatch.ConfigPatch();
             //Log.Message(Current.CameraDriver.config);
         }
+        [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CurrentZoom), MethodType.Getter)]
+        [HarmonyPostfix]
+        public static void CurrentZoomPostFix(CameraDriver __instance, ref CameraZoomRange __result)
+        {
+            double rangeMin = SimpleCameraModSetting.modSetting.displayDistance;
 
+            // Closest 외에는 사용하지 않는 것으로 보이기에 해당 조건일때만 Override
+            // 아이템 수량 표시, 게이지 등이 Closest 가 아닐 경우 Skip함
+            if (__instance.RootSize < rangeMin + 1.0)
+            {
+                __result = CameraZoomRange.Closest;
+            }
+        }
         //기존에는 Closest 외의 CameraZoomRange 기준을 바닐라와 동일하게 맞추기 위해서 Prefix하여서 rangeMax를 60으로 제한
         //하지만 프레임당 호출 횟수가 비 정상적(13000까지도 상승)으로 나오고 0.33ms정도까지 소모하는 문제가 발생
-        //Closest의 기준 선정은 동일하므로 굳이 Prefix 안하도록 변경
-        /*          
-        [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CurrentZoom), MethodType.Getter)]
+
+        /*[HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CurrentZoom), MethodType.Getter)]
         [HarmonyPrefix]
         public static bool CurrentZoomPreFix(CameraDriver __instance, ref CameraZoomRange __result)
         {
-            float rangeMin = SimpleCameraModSetting.modSetting.displayDistance;
-            float rangeMax = __instance.config.sizeRange.max;
-            if (rangeMax > 60) rangeMax = 60;
+            //displayDistance를 기준으로 Min을 산정함
+            //해당 값을 ProgressBar, Item Count 등에 사용(Closest 아니면 무시하게 되어있음)
+            double rangeMin = SimpleCameraModSetting.modSetting.displayDistance;
+            //double rangeMax = __instance.config.sizeRange.max;
+            //if (rangeMax > 60) rangeMax = 60;
             if ((double)__instance.ZoomRootSize < rangeMin + 1.0)
             {
                 //아마 Closest 말고 다른 요소는 사용하지 않음
                 __result = CameraZoomRange.Closest;
                 return false;
             }
-            if ((double)__instance.ZoomRootSize < (double)rangeMax * 0.23000000417232513)
+            return true;
+*//*            if ((double)__instance.ZoomRootSize < (double)rangeMax * 0.23000000417232513)
             {
                 __result = CameraZoomRange.Close;
                 return false;
@@ -66,8 +80,8 @@ namespace SimpleCameraSetting
                 return false;
             }
             __result = ((double)__instance.ZoomRootSize < (double)rangeMax * 0.949999988079071) ? CameraZoomRange.Far : CameraZoomRange.Furthest;
-            return false;
-        }
-        */
+            return false;*//*
+        }*/
+
     }
 }

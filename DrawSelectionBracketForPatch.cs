@@ -9,6 +9,7 @@ using Verse;
 
 namespace SimpleCameraSetting
 {
+    //Following 중 림에 테두리가 생기면 안이뻐서 지워줌
     [HarmonyPatch]
     public static class DrawSelectionBracketForPatch
     {

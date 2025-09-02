@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 namespace SimpleCameraSetting
 {
+    //CameraFollowing 기능 관련
+    //메시지 띄우기, 다른 림 Follow 시 부드럽게 이동 등
     [HarmonyPatch]
     public static class CameraMapConfigUpdatePatch
     {
