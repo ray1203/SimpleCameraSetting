@@ -111,7 +111,7 @@ namespace SimpleCameraSetting
             listingStandard.ColumnWidth = columnWidth;
 
             listingStandard.Begin(inRect);
-
+            #region ZoomRange
             listingStandard.Label("ZoomRange".Translate());
             listingStandard.Gap(-4);
 
@@ -168,7 +168,7 @@ namespace SimpleCameraSetting
             }
 
             listingStandard.Gap(4f);
-
+            #endregion
             // Zoom speed
             Rect zoomSpeedRect = listingStandard.GetRect(Text.LineHeight);
             Widgets.Label(zoomSpeedRect, "ZoomSpeed".Translate() + ": " + modSetting.zoomSpeed.ToString("F1"));
@@ -210,6 +210,14 @@ namespace SimpleCameraSetting
                 modSetting.SetDefault();
 
             listingStandard.NewColumn();
+            //카메라 속도 설정  제목 + 툴팁
+            {
+                Rect titleRect = listingStandard.GetRect(Text.LineHeight);
+                Widgets.Label(titleRect, "CameraSpeedSettingsTitle".Translate());
+                TooltipHandler.TipRegion(titleRect, "CameraSpeedSettingsTooltip".Translate());
+                listingStandard.GapLine();
+                listingStandard.Gap();
+            }
 
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed1".Translate(), ref modSetting.moveSpeedScale_1);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed3".Translate(), ref modSetting.moveSpeedScale_3);
