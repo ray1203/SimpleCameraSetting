@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <SimpleCameraSetting>
+    <Label>간단한 카메라 설정</Label>
+  </SimpleCameraSetting>
+  <ZoomRange>줌 범위</ZoomRange>
+  <ZoomSpeed>줌 속도</ZoomSpeed>
+  <SilhouetteDistance>실루엣 표시 거리</SilhouetteDistance>
+  <HidePawnName>폰 이름 숨기기</HidePawnName>
+  <HidePawnNameTooltip>실루엣을 표시할 때 폰의 이름을 숨깁니다.</HidePawnNameTooltip>
+  <DisplayDistance>아이템 표시 거리</DisplayDistance>
+  <SmoothZoom>부드러운 줌</SmoothZoom>
+  <HideBracket>폰 테두리 숨기기</HideBracket>
+
+  <ZoomDebugMessage>줌 디버그용 메시지</ZoomDebugMessage>
+  <ZoomDebugMessageTooltip>현재 줌을 메시지를 통해 보여줍니다.</ZoomDebugMessageTooltip>
+
+  <DefaultValue>기본값</DefaultValue>
+  <followCameraKey>카메라 따라가기 키</followCameraKey>
+  <AutoOffFollow>따라가기 자동 종료</AutoOffFollow>
+  <AutoOffFollowTooltip>폰을 선택하고 있지 않다면 카메라 따라가기 기능을 자동으로 종료합니다.</AutoOffFollowTooltip>
+
+  <CameraSpeedSettingsTitle>카메라 속도 설정</CameraSpeedSettingsTitle>
+  <CameraSpeedSettingsTooltip>각 줌 단계에 따른 카메라 이동 속도를 조절합니다.
+이 항목은 줌 속도가 아니라 카메라 이동 속도입니다.
+"줌 디버그용 메시지" 옵션을 통해 현재 줌 단계를 확인할 수 있습니다.
+  </CameraSpeedSettingsTooltip>
+
+  <CameraSpeed1>카메라 속도 (줌 배율&lt;1)</CameraSpeed1>
+  <CameraSpeed3>카메라 속도 (줌 배율&lt;3)</CameraSpeed3>
+  <CameraSpeed5>카메라 속도 (줌 배율&lt;5)</CameraSpeed5>
+  <CameraSpeed10>카메라 속도 (줌 배율&lt;10)</CameraSpeed10>
+  <CameraSpeed20>카메라 속도 (줌 배율&lt;20)</CameraSpeed20>
+  <CameraSpeed40>카메라 속도 (줌 배율&lt;40)</CameraSpeed40>
+  <CameraSpeed60>카메라 속도 (줌 배율&lt;60)</CameraSpeed60>
+  <CameraSpeed100>카메라 속도 (줌 배율&lt;100)</CameraSpeed100>
+  <CameraSpeed200>카메라 속도 (줌 배율&lt;200)</CameraSpeed200>
+
+  <HideBracketTooltip>카메라가 따라다니는 동안 폰 선택 테두리가 사라집니다.</HideBracketTooltip>
+  <SilhouetteDistanceTooltip>100으로 설정하여 비활성화</SilhouetteDistanceTooltip>
+  <DisplayDistanceTooltip>아이템의 수량, 진행 바의 표시 거리</DisplayDistanceTooltip>
+</LanguageData>

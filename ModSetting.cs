@@ -123,19 +123,27 @@ namespace SimpleCameraSetting
             Rect zoomRangeRect = listingStandard.GetRect(28f);
             float prevMin = modSetting.sizeRange.min;
             float prevMax = modSetting.sizeRange.max;
-
+#if RIMWORLD16
             Widgets.FloatRange(
                 zoomRangeRect,
-                0xC0FFEE,                    // unique id
+                0xC0FFEE,
                 ref modSetting.sizeRange,
                 0f, 200f,
                 null,
-                ToStringStyle.FloatTwo,
+                ToStringStyle.FloatTwo,   // 값 텍스트 숨김
                 0f,
                 GameFont.Small,
                 null,
-                0.1f                         // step 0.1
+                0.1f                  // 1.6: roundTo 지원
             );
+#elif RIMWORLD15
+            Widgets.FloatRange(
+                zoomRangeRect,
+                0xC0FFEE,
+                ref modSetting.sizeRange,
+                0f, 200f
+            );
+#endif
 
             //2) 슬라이더로 값이 바뀌었으면 버퍼 문자열을 갱신해 텍스트 필드에 반영
             bool sliderChanged = !Mathf.Approximately(prevMin, modSetting.sizeRange.min)

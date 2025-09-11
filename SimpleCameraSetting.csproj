@@ -30,6 +30,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-1.5|AnyCPU'">
+    <OutputPath>SimpleCameraSetting\1.5\Assemblies\</OutputPath>
+    <DefineConstants>TRACE;RIMWORLD15</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-1.6|AnyCPU'">
+    <OutputPath>SimpleCameraSetting\1.6\Assemblies\</OutputPath>
+    <DefineConstants>TRACE;RIMWORLD16</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BetterKeybinding">
       <HintPath>.\BetterKeybinding.dll</HintPath>
@@ -50,6 +68,21 @@
     <Compile Include="Refs.cs" />
     <Compile Include="SilhouetteUtilityPatch.cs" />
     <Compile Include="SimpleCameraSetting.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release-1.5'">
+    <PackageReference Include="Krafs.Rimworld.Ref">
+      <Version>1.6.4566</Version>
+      <PrivateAssets>all</PrivateAssets>
+      <ExcludeAssets>runtime</ExcludeAssets>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release-1.6'">
+    <PackageReference Include="Krafs.Rimworld.Ref">
+      <Version>1.5.4409</Version>
+      <PrivateAssets>all</PrivateAssets>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <SimpleCameraSetting>
+    <Label>Simple Camera Setting</Label>
+  </SimpleCameraSetting>
+  <ZoomRange>Zoom Range</ZoomRange>
+  <ZoomSpeed>Zoom Speed</ZoomSpeed>
+  <SilhouetteDistance>Silhouette Distance</SilhouetteDistance>
+  <HidePawnName>Hide Pawn Name</HidePawnName>
+  <HidePawnNameTooltip>Hide Pawn's name when displaying its silhouette.</HidePawnNameTooltip>
+  <DisplayDistance>Display Distance</DisplayDistance>
+  <SmoothZoom>Smooth Zoom</SmoothZoom>
+  <HideBracket>Hide Pawn Border</HideBracket>
+
+  <ZoomDebugMessage>Zoom Debug Message</ZoomDebugMessage>
+  <ZoomDebugMessageTooltip>Displays the current zoom as a message.</ZoomDebugMessageTooltip>
+
+  <DefaultValue>Default Value</DefaultValue>
+
+
+  <followCameraKey>Follow Camera Key</followCameraKey>
+  <AutoOffFollow>Auto Off Following</AutoOffFollow>
+  <AutoOffFollowTooltip>If you are not selecting your pawn, turns off Following automatically.</AutoOffFollowTooltip>
+
+  <CameraSpeedSettingsTitle>Camera Speed Settings</CameraSpeedSettingsTitle>
+  <CameraSpeedSettingsTooltip>Adjust the camera movement speed for each zoom level.
+This controls camera movement speed, not zoom speed.
+You can check the current zoom level via the "Zoom Debug Message" option.
+  </CameraSpeedSettingsTooltip>
+
+  <CameraSpeed1>Camera Speed (Zoom &lt; 1)</CameraSpeed1>
+  <CameraSpeed3>Camera Speed (Zoom &lt; 3)</CameraSpeed3>
+  <CameraSpeed5>Camera Speed (Zoom &lt; 5)</CameraSpeed5>
+  <CameraSpeed10>Camera Speed (Zoom &lt; 10)</CameraSpeed10>
+  <CameraSpeed20>Camera Speed (Zoom &lt; 20)</CameraSpeed20>
+  <CameraSpeed40>Camera Speed (Zoom &lt; 40)</CameraSpeed40>
+  <CameraSpeed60>Camera Speed (Zoom &lt; 60)</CameraSpeed60>
+  <CameraSpeed100>Camera Speed (Zoom &lt; 100)</CameraSpeed100>
+  <CameraSpeed200>Camera Speed (Zoom &lt; 200)</CameraSpeed200>
+
+  <HideBracketTooltip>The pawn selection border disappears while the camera follows.</HideBracketTooltip>
+  <SilhouetteDistanceTooltip>Set to 100 to disable</SilhouetteDistanceTooltip>
+  <DisplayDistanceTooltip>Display distance for item quantities and progress bars</DisplayDistanceTooltip>
+</LanguageData>
