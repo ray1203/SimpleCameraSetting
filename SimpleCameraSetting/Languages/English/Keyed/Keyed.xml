@@ -38,7 +38,13 @@ You can check the current zoom level via the "Zoom Debug Message" option.
   <CameraSpeed100>Camera Speed (Zoom &lt; 100)</CameraSpeed100>
   <CameraSpeed200>Camera Speed (Zoom &lt; 200)</CameraSpeed200>
 
-  <HideBracketTooltip>The pawn selection border disappears while the camera follows.</HideBracketTooltip>
+  <SCS_BracketHideMode_Title>Selection Bracket</SCS_BracketHideMode_Title>
+  <SCS_BracketHideMode_Tooltip>Choose when to hide the selection brackets.</SCS_BracketHideMode_Tooltip>
+
+  <SCS_BracketHideMode_Never>Always show</SCS_BracketHideMode_Never>
+  <SCS_BracketHideMode_Always>Always hide</SCS_BracketHideMode_Always>
+  <SCS_BracketHideMode_WhenFollowing>Hide when following</SCS_BracketHideMode_WhenFollowing>
+
   <SilhouetteDistanceTooltip>Set to 100 to disable</SilhouetteDistanceTooltip>
   <DisplayDistanceTooltip>Display distance for item quantities and progress bars</DisplayDistanceTooltip>
 </LanguageData>

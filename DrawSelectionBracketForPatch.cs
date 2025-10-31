@@ -17,7 +17,9 @@ namespace SimpleCameraSetting
         [HarmonyPrefix]
         static bool Prefix()
         {
-            if (Current.CameraDriver.config.followSelected) return false;
+            var mode = SimpleCameraModSetting.modSetting.bracketHideMode;
+            if (mode == BracketHideMode.Always) return false;
+            if (mode == BracketHideMode.WhenFollowing && Current.CameraDriver.config.followSelected) return false;
 
             return true;
         }

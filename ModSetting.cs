@@ -1,10 +1,18 @@
-﻿using Verse;
-using UnityEngine;
+﻿using BetterKeybinding;
 using System;
-using BetterKeybinding;
+using System.Collections.Generic;
+using UnityEngine;
+using Verse;
 
 namespace SimpleCameraSetting
 {
+    public enum BracketHideMode
+    {
+        Never,          // 항상 보임
+        Always,         // 항상 숨김
+        WhenFollowing   // 따라다닐 때만 숨김
+    }
+
     public class ModSetting : ModSettings
     {
         public FloatRange sizeRange;
@@ -13,7 +21,7 @@ namespace SimpleCameraSetting
         public float silhouetteDistance;
         public float displayDistance;
         private static KeyBind _followCameraKey;
-        public bool hideBracket;
+        public BracketHideMode bracketHideMode;
         public bool zoomToMouse;
 
         public bool zoomDebugMessage;
@@ -52,7 +60,7 @@ namespace SimpleCameraSetting
             displayDistance = 11f;
             ModSetting._followCameraKey = new KeyBind("", KeyCode.Backspace, EventModifiers.None);
 
-            hideBracket = true;
+            bracketHideMode = BracketHideMode.WhenFollowing;
             autoOffFollow = true;
             zoomToMouse = true;
             zoomDebugMessage = false;
@@ -75,7 +83,7 @@ namespace SimpleCameraSetting
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
             Scribe_Values.Look<float>(ref displayDistance, "displayDistance", 11f);
             Scribe_Deep.Look<KeyBind>(ref ModSetting._followCameraKey, "followCameraKey", Array.Empty<object>());
-            Scribe_Values.Look<bool>(ref hideBracket, "hideBracket", true);
+            Scribe_Values.Look(ref bracketHideMode, "bracketHideMode", BracketHideMode.WhenFollowing);
             Scribe_Values.Look<bool>(ref autoOffFollow, "autoOffFollow", true);
             Scribe_Values.Look<bool>(ref zoomToMouse, "zoomToMouse", Prefs.ZoomToMouse);
             Scribe_Values.Look<bool>(ref zoomDebugMessage, "zoomDebugMessage", false);
@@ -206,7 +214,40 @@ namespace SimpleCameraSetting
             ModSetting.followCameraKey.label = "followCameraKey".Translate();
             ModSetting.followCameraKey.Draw(listingStandard.GetRect(30f, 1f), 6);
 
-            listingStandard.CheckboxLabeled("HideBracket".Translate(), ref modSetting.hideBracket, "HideBracketTooltip".Translate());
+            #region BracketDropdown
+            listingStandard.Gap(15f);
+            Rect bracketRect = listingStandard.GetRect(Text.LineHeight);
+            Rect bracketLabelRect = new Rect(bracketRect.x, bracketRect.y, bracketRect.width * 0.5f, bracketRect.height);
+            Rect bracketButtonRect = new Rect(bracketRect.x + bracketRect.width * 0.5f + 10f, bracketRect.y, bracketRect.width * 0.4f, bracketRect.height);
+
+            // 좌측 라벨
+            Widgets.Label(bracketLabelRect, "SCS_BracketHideMode_Title".Translate());
+            // 툴팁
+            TooltipHandler.TipRegion(bracketLabelRect, "SCS_BracketHideMode_Tooltip".Translate());
+
+            // 현재 선택 라벨
+            string currentKey = "SCS_BracketHideMode_" + modSetting.bracketHideMode.ToString();
+            TaggedString currentLabel = currentKey.Translate();
+
+            // 드롭다운 버튼
+            if (Widgets.ButtonText(bracketButtonRect, currentLabel))
+            {
+                List<FloatMenuOption> options = new List<FloatMenuOption>();
+                foreach (BracketHideMode mode in System.Enum.GetValues(typeof(BracketHideMode)))
+                {
+                    string optionKey = "SCS_BracketHideMode_" + mode.ToString();
+                    TaggedString optionLabel = optionKey.Translate();
+
+                    options.Add(new FloatMenuOption(optionLabel.Resolve(), () =>
+                    {
+                        modSetting.bracketHideMode = mode;
+                    }));
+                }
+                Find.WindowStack.Add(new FloatMenu(options));
+            }
+
+            listingStandard.Gap(15f);
+            #endregion
             listingStandard.CheckboxLabeled("AutoOffFollow".Translate(), ref modSetting.autoOffFollow, "AutoOffFollowTooltip".Translate());
 
             listingStandard.GapLine();

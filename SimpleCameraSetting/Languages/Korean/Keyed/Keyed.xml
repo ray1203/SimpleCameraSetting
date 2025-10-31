@@ -36,7 +36,13 @@
   <CameraSpeed100>카메라 속도 (줌 배율&lt;100)</CameraSpeed100>
   <CameraSpeed200>카메라 속도 (줌 배율&lt;200)</CameraSpeed200>
 
-  <HideBracketTooltip>카메라가 따라다니는 동안 폰 선택 테두리가 사라집니다.</HideBracketTooltip>
+  <SCS_BracketHideMode_Title>선택 테두리</SCS_BracketHideMode_Title>
+  <SCS_BracketHideMode_Tooltip>선택 테두리를 언제 숨길지 설정합니다.</SCS_BracketHideMode_Tooltip>
+
+  <SCS_BracketHideMode_Never>항상 보이기</SCS_BracketHideMode_Never>
+  <SCS_BracketHideMode_Always>항상 숨기기</SCS_BracketHideMode_Always>
+  <SCS_BracketHideMode_WhenFollowing>따라다닐 때만 숨기기</SCS_BracketHideMode_WhenFollowing>
+  
   <SilhouetteDistanceTooltip>100으로 설정하여 비활성화</SilhouetteDistanceTooltip>
   <DisplayDistanceTooltip>아이템의 수량, 진행 바의 표시 거리</DisplayDistanceTooltip>
 </LanguageData>
