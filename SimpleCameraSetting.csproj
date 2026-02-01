@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release-1.5'">
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.5.4409</Version>
+      <Version>1.6.4633</Version>
       <PrivateAssets>all</PrivateAssets>
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

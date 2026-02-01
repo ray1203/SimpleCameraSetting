@@ -40,7 +40,7 @@ namespace SimpleCameraSetting
             {
                 //followCameraFlag = !followCameraFlag;
                 Current.CameraDriver.config.followSelected = !Current.CameraDriver.config.followSelected;
-                Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef());
+                Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef(),false);
 
             }
             return true;
