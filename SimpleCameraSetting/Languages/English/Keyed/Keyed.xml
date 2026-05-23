@@ -38,6 +38,16 @@ You can check the current zoom level via the "Zoom Debug Message" option.
   <CameraSpeed100>Camera Speed (Zoom &lt; 100)</CameraSpeed100>
   <CameraSpeed200>Camera Speed (Zoom &lt; 200)</CameraSpeed200>
 
+  <ZoomSpeed1>Zoom Speed (Zoom &lt; 1)</ZoomSpeed1>
+  <ZoomSpeed3>Zoom Speed (Zoom &lt; 3)</ZoomSpeed3>
+  <ZoomSpeed5>Zoom Speed (Zoom &lt; 5)</ZoomSpeed5>
+  <ZoomSpeed10>Zoom Speed (Zoom &lt; 10)</ZoomSpeed10>
+  <ZoomSpeed20>Zoom Speed (Zoom &lt; 20)</ZoomSpeed20>
+  <ZoomSpeed40>Zoom Speed (Zoom &lt; 40)</ZoomSpeed40>
+  <ZoomSpeed60>Zoom Speed (Zoom &lt; 60)</ZoomSpeed60>
+  <ZoomSpeed100>Zoom Speed (Zoom &lt; 100)</ZoomSpeed100>
+  <ZoomSpeed200>Zoom Speed (Zoom &lt; 200)</ZoomSpeed200>
+
   <SCS_BracketHideMode_Title>Selection Bracket</SCS_BracketHideMode_Title>
   <SCS_BracketHideMode_Tooltip>Choose when to hide the selection brackets.</SCS_BracketHideMode_Tooltip>
 

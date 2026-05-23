@@ -47,6 +47,16 @@ namespace SimpleCameraSetting
         public float moveSpeedScale_60;
         public float moveSpeedScale_100;
         public float moveSpeedScale_200;
+
+        public float zoomSpeedScale_1;
+        public float zoomSpeedScale_3;
+        public float zoomSpeedScale_5;
+        public float zoomSpeedScale_10;
+        public float zoomSpeedScale_20;
+        public float zoomSpeedScale_40;
+        public float zoomSpeedScale_60;
+        public float zoomSpeedScale_100;
+        public float zoomSpeedScale_200;
         public ModSetting()
         {
             SetDefault();
@@ -74,6 +84,16 @@ namespace SimpleCameraSetting
             moveSpeedScale_60 = 2f;
             moveSpeedScale_100 = 2f;
             moveSpeedScale_200 = 2f;
+
+            zoomSpeedScale_1 = 6f;
+            zoomSpeedScale_3 = 6f;
+            zoomSpeedScale_5 = 4f;
+            zoomSpeedScale_10 = 4f;
+            zoomSpeedScale_20 = 4f;
+            zoomSpeedScale_40 = 2f;
+            zoomSpeedScale_60 = 2f;
+            zoomSpeedScale_100 = 2f;
+            zoomSpeedScale_200 = 2f;
         }
         public override void ExposeData()
         {
@@ -98,6 +118,16 @@ namespace SimpleCameraSetting
             Scribe_Values.Look(ref moveSpeedScale_60, "moveSpeedScale_60", 2f);
             Scribe_Values.Look(ref moveSpeedScale_100, "moveSpeedScale_100", 2f);
             Scribe_Values.Look(ref moveSpeedScale_200, "moveSpeedScale_200", 2f);
+
+            Scribe_Values.Look(ref zoomSpeedScale_1, "zoomSpeedScale_1", 6f);
+            Scribe_Values.Look(ref zoomSpeedScale_3, "zoomSpeedScale_3", 6f);
+            Scribe_Values.Look(ref zoomSpeedScale_5, "zoomSpeedScale_5", 4f);
+            Scribe_Values.Look(ref zoomSpeedScale_10, "zoomSpeedScale_10", 4f);
+            Scribe_Values.Look(ref zoomSpeedScale_20, "zoomSpeedScale_20", 4f);
+            Scribe_Values.Look(ref zoomSpeedScale_40, "zoomSpeedScale_40", 2f);
+            Scribe_Values.Look(ref zoomSpeedScale_60, "zoomSpeedScale_60", 2f);
+            Scribe_Values.Look(ref zoomSpeedScale_100, "zoomSpeedScale_100", 2f);
+            Scribe_Values.Look(ref zoomSpeedScale_200, "zoomSpeedScale_200", 2f);
             base.ExposeData();
 
         }
@@ -277,6 +307,19 @@ namespace SimpleCameraSetting
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed60".Translate(), ref modSetting.moveSpeedScale_60);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed100".Translate(), ref modSetting.moveSpeedScale_100);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed200".Translate(), ref modSetting.moveSpeedScale_200);
+
+            listingStandard.GapLine();
+            listingStandard.Gap();
+
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed1".Translate(), ref modSetting.zoomSpeedScale_1);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed3".Translate(), ref modSetting.zoomSpeedScale_3);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed5".Translate(), ref modSetting.zoomSpeedScale_5);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed10".Translate(), ref modSetting.zoomSpeedScale_10);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed20".Translate(), ref modSetting.zoomSpeedScale_20);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed40".Translate(), ref modSetting.zoomSpeedScale_40);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed60".Translate(), ref modSetting.zoomSpeedScale_60);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed100".Translate(), ref modSetting.zoomSpeedScale_100);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed200".Translate(), ref modSetting.zoomSpeedScale_200);
 
             listingStandard.End();
 

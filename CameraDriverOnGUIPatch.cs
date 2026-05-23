@@ -27,6 +27,16 @@ namespace SimpleCameraSetting
                 else if (desiredSize < 100f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
                 else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_200;
 
+                if (desiredSize < 1f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_1;
+                else if (desiredSize < 3f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_3;
+                else if (desiredSize < 5f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_5;
+                else if (desiredSize < 10f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_10;
+                else if (desiredSize < 20f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_20;
+                else if (desiredSize < 40f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_40;
+                else if (desiredSize < 60f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_60;
+                else if (desiredSize < 100f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_100;
+                else __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_200;
+
                 //현재 줌을 메시지로 출력
                 if (SimpleCameraModSetting.modSetting.zoomDebugMessage)
                 {
