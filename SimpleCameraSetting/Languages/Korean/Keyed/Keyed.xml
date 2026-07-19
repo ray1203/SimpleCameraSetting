@@ -19,6 +19,8 @@
   <followCameraKey>카메라 따라가기 키</followCameraKey>
   <AutoOffFollow>따라가기 자동 종료</AutoOffFollow>
   <AutoOffFollowTooltip>폰을 선택하고 있지 않다면 카메라 따라가기 기능을 자동으로 종료합니다.</AutoOffFollowTooltip>
+  <FollowMessage>따라가기 메시지</FollowMessage>
+  <FollowMessageTooltip>카메라 따라가기가 켜지거나 꺼질 때 메시지를 표시합니다.</FollowMessageTooltip>
 
   <CameraSpeedSettingsTitle>카메라 속도 설정</CameraSpeedSettingsTitle>
   <CameraSpeedSettingsTooltip>각 줌 단계에 따른 카메라 이동 속도를 조절합니다.

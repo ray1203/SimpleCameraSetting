@@ -37,6 +37,7 @@ namespace SimpleCameraSetting
             }
         }
         public bool autoOffFollow;
+        public bool followMessage;
 
         public float moveSpeedScale_1;
         public float moveSpeedScale_3;
@@ -72,6 +73,7 @@ namespace SimpleCameraSetting
 
             bracketHideMode = BracketHideMode.WhenFollowing;
             autoOffFollow = true;
+            followMessage = true;
             zoomToMouse = true;
             zoomDebugMessage = false;
 
@@ -105,6 +107,7 @@ namespace SimpleCameraSetting
             Scribe_Deep.Look<KeyBind>(ref ModSetting._followCameraKey, "followCameraKey", Array.Empty<object>());
             Scribe_Values.Look(ref bracketHideMode, "bracketHideMode", BracketHideMode.WhenFollowing);
             Scribe_Values.Look<bool>(ref autoOffFollow, "autoOffFollow", true);
+            Scribe_Values.Look<bool>(ref followMessage, "followMessage", true);
             Scribe_Values.Look<bool>(ref zoomToMouse, "zoomToMouse", Prefs.ZoomToMouse);
             Scribe_Values.Look<bool>(ref zoomDebugMessage, "zoomDebugMessage", false);
 
@@ -279,6 +282,7 @@ namespace SimpleCameraSetting
             listingStandard.Gap(15f);
             #endregion
             listingStandard.CheckboxLabeled("AutoOffFollow".Translate(), ref modSetting.autoOffFollow, "AutoOffFollowTooltip".Translate());
+            listingStandard.CheckboxLabeled("FollowMessage".Translate(), ref modSetting.followMessage, "FollowMessageTooltip".Translate());
 
             listingStandard.GapLine();
             listingStandard.Gap();

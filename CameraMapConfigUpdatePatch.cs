@@ -27,7 +27,8 @@ namespace SimpleCameraSetting
                     if (SimpleCameraModSetting.modSetting.autoOffFollow)
                     {
                         Current.CameraDriver.config.followSelected = false;
-                        Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef(),false);
+                        if (SimpleCameraModSetting.modSetting.followMessage)
+                            Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef(),false);
                     } 
                     else
                     {

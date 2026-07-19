@@ -21,6 +21,8 @@
   <followCameraKey>Follow Camera Key</followCameraKey>
   <AutoOffFollow>Auto Off Following</AutoOffFollow>
   <AutoOffFollowTooltip>If you are not selecting your pawn, turns off Following automatically.</AutoOffFollowTooltip>
+  <FollowMessage>Following Message</FollowMessage>
+  <FollowMessageTooltip>Show a message when camera following is turned on or off.</FollowMessageTooltip>
 
   <CameraSpeedSettingsTitle>Camera Speed Settings</CameraSpeedSettingsTitle>
   <CameraSpeedSettingsTooltip>Adjust the camera movement speed for each zoom level.
