@@ -35,7 +35,9 @@
     <Reference Include="BetterKeybinding">
       <HintPath>.\BetterKeybinding.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -52,27 +54,22 @@
     <Compile Include="SilhouetteUtilityPatch.cs" />
     <Compile Include="SimpleCameraSetting.cs" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='Release-1.5'">
-    <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.6.4633</Version>
-      <PrivateAssets>all</PrivateAssets>
-      <ExcludeAssets>runtime</ExcludeAssets>
-      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='Release-1.6'">
-    <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.5.4409</Version>
-      <PrivateAssets>all</PrivateAssets>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
+  <PropertyGroup Condition="'$(Configuration)'=='Release-1.5'">
+    <RimWorldRefDir>$(UserProfile)\.nuget\packages\krafs.rimworld.ref\1.5.4409\ref\net472</RimWorldRefDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release-1.6'">
+    <RimWorldRefDir>$(UserProfile)\.nuget\packages\krafs.rimworld.ref\1.6.4566\ref\net472</RimWorldRefDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(RimWorldRefDir)\*.dll"
+               Exclude="$(RimWorldRefDir)\System*.dll;$(RimWorldRefDir)\mscorlib.dll;$(RimWorldRefDir)\Microsoft.*.dll">
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.6.4566</Version>
-    </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.4.1</Version>
+      <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

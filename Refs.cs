@@ -21,8 +21,9 @@ namespace SimpleCameraSetting
         {
             Refs.desiredSize = AccessTools.FieldRefAccess<CameraDriver, float>(nameof(desiredSize));
             Refs.f_desiredSize = AccessTools.Field(typeof(CameraDriver), nameof(desiredSize));
-            Refs.applyPositionToGameObject = AccessTools.MethodDelegate<Action<CameraDriver>>(
-                AccessTools.Method(typeof(CameraDriver), "ApplyPositionToGameObject"));
+            Refs.applyPositionToGameObject = (Action<CameraDriver>)AccessTools
+                .Method(typeof(CameraDriver), "ApplyPositionToGameObject")
+                .CreateDelegate(typeof(Action<CameraDriver>));
             Refs.rootPos = AccessTools.FieldRefAccess<CameraDriver, Vector3>(nameof(rootPos));
         }
     }
