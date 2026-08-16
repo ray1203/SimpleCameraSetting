@@ -9,6 +9,9 @@ namespace SimpleCameraSetting
         private static float desiredSize;
         private static float desiredSizeBefore = 0f;
         private static Message zoomMessage = new Message("", new MessageTypeDef());
+
+        //설정 변경 후 다음 프레임에 바로 설정 적용하는 용
+        internal static void InvalidateSpeedCache() => desiredSizeBefore = -1f;
         //public static bool followCameraFlag = false;
         [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CameraDriverOnGUI))]
         [HarmonyPrefix]

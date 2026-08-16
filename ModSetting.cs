@@ -339,6 +339,7 @@ namespace SimpleCameraSetting
             }
             Prefs.ZoomToMouse = modSetting.zoomToMouse;
             CameraConfigPatch.ConfigPatch();
+            CameraDriverOnGUIPatch.InvalidateSpeedCache();
             base.WriteSettings();
         }
         public override string SettingsCategory()
