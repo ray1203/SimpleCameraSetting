@@ -21,6 +21,10 @@
   <followCameraKey>Follow Camera Key</followCameraKey>
   <AutoOffFollow>Auto Off Following</AutoOffFollow>
   <AutoOffFollowTooltip>If you are not selecting your pawn, turns off Following automatically.</AutoOffFollowTooltip>
+  <FollowMessage>Following Message</FollowMessage>
+  <FollowMessageTooltip>Show a message when camera following is turned on or off.</FollowMessageTooltip>
+  <FollowSmoothTime>Smooth Following</FollowSmoothTime>
+  <FollowSmoothTimeTooltip>Controls how smoothly the camera follows the selected pawn. At 0 the pawn stays locked to the center of the screen; higher values follow more smoothly but let the pawn lag slightly behind. At 0, slight screen jitter may occur.</FollowSmoothTimeTooltip>
 
   <CameraSpeedSettingsTitle>Camera Speed Settings</CameraSpeedSettingsTitle>
   <CameraSpeedSettingsTooltip>Adjust the camera movement speed for each zoom level.
@@ -37,6 +41,16 @@ You can check the current zoom level via the "Zoom Debug Message" option.
   <CameraSpeed60>Camera Speed (Zoom &lt; 60)</CameraSpeed60>
   <CameraSpeed100>Camera Speed (Zoom &lt; 100)</CameraSpeed100>
   <CameraSpeed200>Camera Speed (Zoom &lt; 200)</CameraSpeed200>
+
+  <ZoomSpeed1>Zoom Speed (Zoom &lt; 1)</ZoomSpeed1>
+  <ZoomSpeed3>Zoom Speed (Zoom &lt; 3)</ZoomSpeed3>
+  <ZoomSpeed5>Zoom Speed (Zoom &lt; 5)</ZoomSpeed5>
+  <ZoomSpeed10>Zoom Speed (Zoom &lt; 10)</ZoomSpeed10>
+  <ZoomSpeed20>Zoom Speed (Zoom &lt; 20)</ZoomSpeed20>
+  <ZoomSpeed40>Zoom Speed (Zoom &lt; 40)</ZoomSpeed40>
+  <ZoomSpeed60>Zoom Speed (Zoom &lt; 60)</ZoomSpeed60>
+  <ZoomSpeed100>Zoom Speed (Zoom &lt; 100)</ZoomSpeed100>
+  <ZoomSpeed200>Zoom Speed (Zoom &lt; 200)</ZoomSpeed200>
 
   <SCS_BracketHideMode_Title>Selection Bracket</SCS_BracketHideMode_Title>
   <SCS_BracketHideMode_Tooltip>Choose when to hide the selection brackets.</SCS_BracketHideMode_Tooltip>

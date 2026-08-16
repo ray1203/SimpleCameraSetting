@@ -16,7 +16,6 @@ namespace SimpleCameraSetting
     public class ModSetting : ModSettings
     {
         public FloatRange sizeRange;
-        public float zoomSpeed;
         public bool smoothZoom;
         public float silhouetteDistance;
         public float displayDistance;
@@ -37,6 +36,8 @@ namespace SimpleCameraSetting
             }
         }
         public bool autoOffFollow;
+        public bool followMessage;
+        public float followSmoothTime;
 
         public float moveSpeedScale_1;
         public float moveSpeedScale_3;
@@ -47,6 +48,16 @@ namespace SimpleCameraSetting
         public float moveSpeedScale_60;
         public float moveSpeedScale_100;
         public float moveSpeedScale_200;
+
+        public float zoomSpeedScale_1;
+        public float zoomSpeedScale_3;
+        public float zoomSpeedScale_5;
+        public float zoomSpeedScale_10;
+        public float zoomSpeedScale_20;
+        public float zoomSpeedScale_40;
+        public float zoomSpeedScale_60;
+        public float zoomSpeedScale_100;
+        public float zoomSpeedScale_200;
         public ModSetting()
         {
             SetDefault();
@@ -54,7 +65,6 @@ namespace SimpleCameraSetting
         public void SetDefault()
         {
             sizeRange = new FloatRange(0.5f, 100);
-            zoomSpeed = 2f;
             smoothZoom = false;
             silhouetteDistance = 60f;
             displayDistance = 11f;
@@ -62,6 +72,8 @@ namespace SimpleCameraSetting
 
             bracketHideMode = BracketHideMode.WhenFollowing;
             autoOffFollow = true;
+            followMessage = true;
+            followSmoothTime = 0.03f;
             zoomToMouse = true;
             zoomDebugMessage = false;
 
@@ -74,17 +86,28 @@ namespace SimpleCameraSetting
             moveSpeedScale_60 = 2f;
             moveSpeedScale_100 = 2f;
             moveSpeedScale_200 = 2f;
+
+            zoomSpeedScale_1 = 6f;
+            zoomSpeedScale_3 = 6f;
+            zoomSpeedScale_5 = 4f;
+            zoomSpeedScale_10 = 4f;
+            zoomSpeedScale_20 = 4f;
+            zoomSpeedScale_40 = 2f;
+            zoomSpeedScale_60 = 2f;
+            zoomSpeedScale_100 = 2f;
+            zoomSpeedScale_200 = 2f;
         }
         public override void ExposeData()
         {
             Scribe_Values.Look<FloatRange>(ref sizeRange, "sizeRange", new FloatRange(0.5f, 100));
-            Scribe_Values.Look<float>(ref zoomSpeed, "zoomSpeed", 2f);
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
             Scribe_Values.Look<float>(ref displayDistance, "displayDistance", 11f);
             Scribe_Deep.Look<KeyBind>(ref ModSetting._followCameraKey, "followCameraKey", Array.Empty<object>());
             Scribe_Values.Look(ref bracketHideMode, "bracketHideMode", BracketHideMode.WhenFollowing);
             Scribe_Values.Look<bool>(ref autoOffFollow, "autoOffFollow", true);
+            Scribe_Values.Look<bool>(ref followMessage, "followMessage", true);
+            Scribe_Values.Look<float>(ref followSmoothTime, "followSmoothTime", 0.03f);
             Scribe_Values.Look<bool>(ref zoomToMouse, "zoomToMouse", Prefs.ZoomToMouse);
             Scribe_Values.Look<bool>(ref zoomDebugMessage, "zoomDebugMessage", false);
 
@@ -98,6 +121,16 @@ namespace SimpleCameraSetting
             Scribe_Values.Look(ref moveSpeedScale_60, "moveSpeedScale_60", 2f);
             Scribe_Values.Look(ref moveSpeedScale_100, "moveSpeedScale_100", 2f);
             Scribe_Values.Look(ref moveSpeedScale_200, "moveSpeedScale_200", 2f);
+
+            Scribe_Values.Look(ref zoomSpeedScale_1, "zoomSpeedScale_1", 6f);
+            Scribe_Values.Look(ref zoomSpeedScale_3, "zoomSpeedScale_3", 6f);
+            Scribe_Values.Look(ref zoomSpeedScale_5, "zoomSpeedScale_5", 4f);
+            Scribe_Values.Look(ref zoomSpeedScale_10, "zoomSpeedScale_10", 4f);
+            Scribe_Values.Look(ref zoomSpeedScale_20, "zoomSpeedScale_20", 4f);
+            Scribe_Values.Look(ref zoomSpeedScale_40, "zoomSpeedScale_40", 2f);
+            Scribe_Values.Look(ref zoomSpeedScale_60, "zoomSpeedScale_60", 2f);
+            Scribe_Values.Look(ref zoomSpeedScale_100, "zoomSpeedScale_100", 2f);
+            Scribe_Values.Look(ref zoomSpeedScale_200, "zoomSpeedScale_200", 2f);
             base.ExposeData();
 
         }
@@ -185,11 +218,6 @@ namespace SimpleCameraSetting
 
             listingStandard.Gap(4f);
             #endregion
-            // Zoom speed
-            Rect zoomSpeedRect = listingStandard.GetRect(Text.LineHeight);
-            Widgets.Label(zoomSpeedRect, "ZoomSpeed".Translate() + ": " + modSetting.zoomSpeed.ToString("F1"));
-            modSetting.zoomSpeed = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.zoomSpeed, 0.1f, 10f);
-
             listingStandard.GapLine();
             listingStandard.Gap();
 
@@ -249,6 +277,13 @@ namespace SimpleCameraSetting
             listingStandard.Gap(15f);
             #endregion
             listingStandard.CheckboxLabeled("AutoOffFollow".Translate(), ref modSetting.autoOffFollow, "AutoOffFollowTooltip".Translate());
+            listingStandard.CheckboxLabeled("FollowMessage".Translate(), ref modSetting.followMessage, "FollowMessageTooltip".Translate());
+
+            // Follow smoothing (0 = 고정, 값 늘면 더 부드럽게 뒤따라감)
+            Rect smoothRect = listingStandard.GetRect(Text.LineHeight);
+            Widgets.Label(smoothRect, "FollowSmoothTime".Translate() + ": " + modSetting.followSmoothTime.ToString("F2"));
+            TooltipHandler.TipRegion(smoothRect, "FollowSmoothTimeTooltip".Translate());
+            modSetting.followSmoothTime = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.followSmoothTime, 0f, 0.15f);
 
             listingStandard.GapLine();
             listingStandard.Gap();
@@ -278,6 +313,19 @@ namespace SimpleCameraSetting
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed100".Translate(), ref modSetting.moveSpeedScale_100);
             DrawCameraSpeedSetting(listingStandard, "CameraSpeed200".Translate(), ref modSetting.moveSpeedScale_200);
 
+            listingStandard.GapLine();
+            listingStandard.Gap();
+
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed1".Translate(), ref modSetting.zoomSpeedScale_1);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed3".Translate(), ref modSetting.zoomSpeedScale_3);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed5".Translate(), ref modSetting.zoomSpeedScale_5);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed10".Translate(), ref modSetting.zoomSpeedScale_10);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed20".Translate(), ref modSetting.zoomSpeedScale_20);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed40".Translate(), ref modSetting.zoomSpeedScale_40);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed60".Translate(), ref modSetting.zoomSpeedScale_60);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed100".Translate(), ref modSetting.zoomSpeedScale_100);
+            DrawCameraSpeedSetting(listingStandard, "ZoomSpeed200".Translate(), ref modSetting.zoomSpeedScale_200);
+
             listingStandard.End();
 
             base.DoSettingsWindowContents(inRect);
@@ -291,6 +339,7 @@ namespace SimpleCameraSetting
             }
             Prefs.ZoomToMouse = modSetting.zoomToMouse;
             CameraConfigPatch.ConfigPatch();
+            CameraDriverOnGUIPatch.InvalidateSpeedCache();
             base.WriteSettings();
         }
         public override string SettingsCategory()

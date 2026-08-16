@@ -9,6 +9,9 @@ namespace SimpleCameraSetting
         private static float desiredSize;
         private static float desiredSizeBefore = 0f;
         private static Message zoomMessage = new Message("", new MessageTypeDef());
+
+        //설정 변경 후 다음 프레임에 바로 설정 적용하는 용
+        internal static void InvalidateSpeedCache() => desiredSizeBefore = -1f;
         //public static bool followCameraFlag = false;
         [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.CameraDriverOnGUI))]
         [HarmonyPrefix]
@@ -27,6 +30,16 @@ namespace SimpleCameraSetting
                 else if (desiredSize < 100f) __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_100;
                 else __instance.config.moveSpeedScale = SimpleCameraModSetting.modSetting.moveSpeedScale_200;
 
+                if (desiredSize < 1f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_1;
+                else if (desiredSize < 3f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_3;
+                else if (desiredSize < 5f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_5;
+                else if (desiredSize < 10f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_10;
+                else if (desiredSize < 20f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_20;
+                else if (desiredSize < 40f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_40;
+                else if (desiredSize < 60f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_60;
+                else if (desiredSize < 100f) __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_100;
+                else __instance.config.zoomSpeed = SimpleCameraModSetting.modSetting.zoomSpeedScale_200;
+
                 //현재 줌을 메시지로 출력
                 if (SimpleCameraModSetting.modSetting.zoomDebugMessage)
                 {
@@ -40,7 +53,8 @@ namespace SimpleCameraSetting
             {
                 //followCameraFlag = !followCameraFlag;
                 Current.CameraDriver.config.followSelected = !Current.CameraDriver.config.followSelected;
-                Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef(),false);
+                if (SimpleCameraModSetting.modSetting.followMessage)
+                    Messages.Message("Camera Following " + (Current.CameraDriver.config.followSelected ? "On" : "Off"), new MessageTypeDef(),false);
 
             }
             return true;

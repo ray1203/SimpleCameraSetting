@@ -19,6 +19,10 @@
   <followCameraKey>카메라 따라가기 키</followCameraKey>
   <AutoOffFollow>따라가기 자동 종료</AutoOffFollow>
   <AutoOffFollowTooltip>폰을 선택하고 있지 않다면 카메라 따라가기 기능을 자동으로 종료합니다.</AutoOffFollowTooltip>
+  <FollowMessage>따라가기 메시지</FollowMessage>
+  <FollowMessageTooltip>카메라 따라가기가 켜지거나 꺼질 때 메시지를 표시합니다.</FollowMessageTooltip>
+  <FollowSmoothTime>부드럽게 따라가기</FollowSmoothTime>
+  <FollowSmoothTimeTooltip>카메라가 선택한 폰을 얼마나 부드럽게 따라갈지 정합니다. 0이면 폰을 화면 중앙에 딱 고정하고, 값이 클수록 부드럽게 따라가되 폰이 살짝 뒤처집니다. 0일 시 약간의 화면 떨림 현상이 발생 가능합니다.</FollowSmoothTimeTooltip>
 
   <CameraSpeedSettingsTitle>카메라 속도 설정</CameraSpeedSettingsTitle>
   <CameraSpeedSettingsTooltip>각 줌 단계에 따른 카메라 이동 속도를 조절합니다.
@@ -35,6 +39,16 @@
   <CameraSpeed60>카메라 속도 (줌 배율&lt;60)</CameraSpeed60>
   <CameraSpeed100>카메라 속도 (줌 배율&lt;100)</CameraSpeed100>
   <CameraSpeed200>카메라 속도 (줌 배율&lt;200)</CameraSpeed200>
+
+  <ZoomSpeed1>줌 속도 (줌 배율&lt;1)</ZoomSpeed1>
+  <ZoomSpeed3>줌 속도 (줌 배율&lt;3)</ZoomSpeed3>
+  <ZoomSpeed5>줌 속도 (줌 배율&lt;5)</ZoomSpeed5>
+  <ZoomSpeed10>줌 속도 (줌 배율&lt;10)</ZoomSpeed10>
+  <ZoomSpeed20>줌 속도 (줌 배율&lt;20)</ZoomSpeed20>
+  <ZoomSpeed40>줌 속도 (줌 배율&lt;40)</ZoomSpeed40>
+  <ZoomSpeed60>줌 속도 (줌 배율&lt;60)</ZoomSpeed60>
+  <ZoomSpeed100>줌 속도 (줌 배율&lt;100)</ZoomSpeed100>
+  <ZoomSpeed200>줌 속도 (줌 배율&lt;200)</ZoomSpeed200>
 
   <SCS_BracketHideMode_Title>선택 테두리</SCS_BracketHideMode_Title>
   <SCS_BracketHideMode_Tooltip>선택 테두리를 언제 숨길지 설정합니다.</SCS_BracketHideMode_Tooltip>
