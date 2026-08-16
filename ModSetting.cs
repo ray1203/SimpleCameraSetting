@@ -16,7 +16,6 @@ namespace SimpleCameraSetting
     public class ModSetting : ModSettings
     {
         public FloatRange sizeRange;
-        public float zoomSpeed;
         public bool smoothZoom;
         public float silhouetteDistance;
         public float displayDistance;
@@ -66,7 +65,6 @@ namespace SimpleCameraSetting
         public void SetDefault()
         {
             sizeRange = new FloatRange(0.5f, 100);
-            zoomSpeed = 2f;
             smoothZoom = false;
             silhouetteDistance = 60f;
             displayDistance = 11f;
@@ -102,7 +100,6 @@ namespace SimpleCameraSetting
         public override void ExposeData()
         {
             Scribe_Values.Look<FloatRange>(ref sizeRange, "sizeRange", new FloatRange(0.5f, 100));
-            Scribe_Values.Look<float>(ref zoomSpeed, "zoomSpeed", 2f);
             Scribe_Values.Look<bool>(ref smoothZoom, "smoothZoom", false);
             Scribe_Values.Look<float>(ref silhouetteDistance, "silhouetteDistance", 60f);
             Scribe_Values.Look<float>(ref displayDistance, "displayDistance", 11f);
@@ -221,11 +218,6 @@ namespace SimpleCameraSetting
 
             listingStandard.Gap(4f);
             #endregion
-            // Zoom speed
-            Rect zoomSpeedRect = listingStandard.GetRect(Text.LineHeight);
-            Widgets.Label(zoomSpeedRect, "ZoomSpeed".Translate() + ": " + modSetting.zoomSpeed.ToString("F1"));
-            modSetting.zoomSpeed = Widgets.HorizontalSlider(listingStandard.GetRect(28f, 1f), modSetting.zoomSpeed, 0.1f, 10f);
-
             listingStandard.GapLine();
             listingStandard.Gap();
 
