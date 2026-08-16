@@ -21,6 +21,8 @@
   <AutoOffFollowTooltip>폰을 선택하고 있지 않다면 카메라 따라가기 기능을 자동으로 종료합니다.</AutoOffFollowTooltip>
   <FollowMessage>따라가기 메시지</FollowMessage>
   <FollowMessageTooltip>카메라 따라가기가 켜지거나 꺼질 때 메시지를 표시합니다.</FollowMessageTooltip>
+  <FollowSmoothTime>부드럽게 따라가기</FollowSmoothTime>
+  <FollowSmoothTimeTooltip>카메라가 선택한 폰을 얼마나 부드럽게 따라갈지 정합니다. 0이면 폰을 화면 중앙에 딱 고정하고, 값이 클수록 부드럽게 따라가되 폰이 살짝 뒤처집니다. 0일 시 약간의 화면 떨림 현상이 발생 가능합니다.</FollowSmoothTimeTooltip>
 
   <CameraSpeedSettingsTitle>카메라 속도 설정</CameraSpeedSettingsTitle>
   <CameraSpeedSettingsTooltip>각 줌 단계에 따른 카메라 이동 속도를 조절합니다.

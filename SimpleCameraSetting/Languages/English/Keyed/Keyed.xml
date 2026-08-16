@@ -23,6 +23,8 @@
   <AutoOffFollowTooltip>If you are not selecting your pawn, turns off Following automatically.</AutoOffFollowTooltip>
   <FollowMessage>Following Message</FollowMessage>
   <FollowMessageTooltip>Show a message when camera following is turned on or off.</FollowMessageTooltip>
+  <FollowSmoothTime>Smooth Following</FollowSmoothTime>
+  <FollowSmoothTimeTooltip>Controls how smoothly the camera follows the selected pawn. At 0 the pawn stays locked to the center of the screen; higher values follow more smoothly but let the pawn lag slightly behind. At 0, slight screen jitter may occur.</FollowSmoothTimeTooltip>
 
   <CameraSpeedSettingsTitle>Camera Speed Settings</CameraSpeedSettingsTitle>
   <CameraSpeedSettingsTooltip>Adjust the camera movement speed for each zoom level.

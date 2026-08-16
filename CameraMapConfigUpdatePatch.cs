@@ -16,16 +16,23 @@ namespace SimpleCameraSetting
     {
         static List<Pawn> lastSelectedPawns = new List<Pawn>();
 
+        //스무딩(followSmoothTime > 0)용 상태
+        static Vector3 smoothedPos;
+        static Vector3 smoothVel;
+        static bool wasFollowing;
+        //목표가 이만큼(셀) 넘게 튀면 스무딩 대신 스냅 (텔레포트/맵이동 등)
+        const float SnapSq = 15f * 15f;
+
         [HarmonyPatch(typeof(CameraDriver), nameof(CameraDriver.Update))]
         [HarmonyPostfix]
         public static void FollowPostfix(CameraDriver __instance)
         {
             //로딩중엔 바닐라 Update도 일찍 return하니 여기도 막음
             if (LongEventHandler.ShouldWaitForEvent || Find.CurrentMap == null)
-                return;
+            { wasFollowing = false; return; }
             CameraMapConfig config = __instance.config;
             if (config == null || !config.followSelected)
-                return;
+            { wasFollowing = false; return; }
 
             List<Pawn> selectedPawns = Find.Selector.SelectedPawns;
 
@@ -37,6 +44,7 @@ namespace SimpleCameraSetting
                     config.followSelected = false;
                     if (SimpleCameraModSetting.modSetting.followMessage)
                         Messages.Message("Camera Following Off", new MessageTypeDef(), false);
+                    wasFollowing = false;
                     return;
                 }
                 selectedPawns = lastSelectedPawns;
@@ -56,14 +64,43 @@ namespace SimpleCameraSetting
                     ++num;
                 }
             }
-            if (num > 0)
+            if (num <= 0) { wasFollowing = false; return; }
+
+            Vector3 target = zero / (float)num;
+            float smoothTime = SimpleCameraModSetting.modSetting.followSmoothTime;
+            Vector3 outPos;
+            if (smoothTime <= 0f)
             {
-                Vector3 target = zero / (float)num;
-                //JumpToCurrentMapLoc으로 rootPos(카메라 위치) 세팅
-                __instance.JumpToCurrentMapLoc(target);
-                //Update의 위치적용은 이미 지나가서 같은 프레임 반영되게 다시 호출
-                Refs.applyPositionToGameObject(__instance);
+                //기본 동작
+                outPos = target;
+                wasFollowing = false;
             }
+            else
+            {
+                if (!wasFollowing)
+                {
+                    //따라가기 시작, 부드럽게 이동
+                    Vector3 cur = Refs.rootPos(__instance);
+                    smoothedPos = new Vector3(cur.x, target.y, cur.z);
+                    smoothVel = Vector3.zero;
+                }
+                else if ((target - smoothedPos).sqrMagnitude > SnapSq)
+                {
+                    //텔레포트/맵이동 등 거리 멀어지면 맵 가로지르지 말고 스냅
+                    smoothedPos = target;
+                    smoothVel = Vector3.zero;
+                }
+                else
+                {
+                    smoothedPos = Vector3.SmoothDamp(smoothedPos, target, ref smoothVel, smoothTime, Mathf.Infinity, Time.deltaTime);
+                }
+                outPos = smoothedPos;
+                wasFollowing = true;
+            }
+
+            __instance.JumpToCurrentMapLoc(outPos);
+            //Update의 위치적용은 이미 지나가서 같은 프레임 반영되게 다시 호출
+            Refs.applyPositionToGameObject(__instance);
         }
     }
 }
