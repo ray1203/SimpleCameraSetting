@@ -131,6 +131,15 @@ namespace SimpleCameraSetting
             Scribe_Values.Look(ref zoomSpeedScale_60, "zoomSpeedScale_60", 2f);
             Scribe_Values.Look(ref zoomSpeedScale_100, "zoomSpeedScale_100", 2f);
             Scribe_Values.Look(ref zoomSpeedScale_200, "zoomSpeedScale_200", 2f);
+
+            //예전 단일 zoomSpeed 값 있으면 zoomspeedscale 2인 곳에 넣어줌
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
+                float legacyZoomSpeed = -1f;
+                Scribe_Values.Look(ref legacyZoomSpeed, "zoomSpeed", -1f);
+                if (legacyZoomSpeed >= 0f)
+                    zoomSpeedScale_40 = zoomSpeedScale_60 = zoomSpeedScale_100 = zoomSpeedScale_200 = legacyZoomSpeed;
+            }
             base.ExposeData();
 
         }
